@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/LayoutPadrao"
+	xmlns:iaff="http://csiaff.iaff.org"
+	xmlns:data="http://www.thymeleaf.org/extras/data">
+	
+<head>
+	<title>Pacientes agendados</title>
+</head>
+
+<body>
+<section layout:fragment="conteudo">
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-10">
+					<h1>Pacientes agendados</h1>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	
+	<div class="container-fluid">
+		<!-- 
+		<form method="GET" th:object="${agendaFilter}" th:action="@{/agenda}">
+			<div class="row">
+				<div class="form-group  col-sm-6">
+					<label class="control-label" for="nome">Nome</label>
+					<input type="text" class="form-control" id="nome" autofocus="autofocus" th:field="*{nome}"/>
+				</div>
+			</div>
+			
+			<button type="submit" class="btn  btn-primary">Pesquisar</button>
+		</form>
+		-->
+		<div class="table-responsive  bw-tabela-simples">
+        	<table class="table  table-hover">
+	            <thead>
+	            	<tr>
+	            		<th class="table-pessoas-col-documento">Data agendamento</th>
+	                	<th class="table-pessoas-col-nome">Paciente</th>
+	                	<th class="table-pessoas-col-nome">Profissional</th>
+	                 	<th class="table-col-acoes">Operações</th>
+					</tr>
+				</thead>
+			
+	            <tbody>
+					<tr th:each="agenda : ${pagina.conteudo}">  
+						<td class="text-right" th:text="${agenda.dataAgendamentoString}"></td>
+						<td th:text="${agenda.paciente.pessoa.nome}"></td>
+						<td th:text="${agenda.usuario.nome}"></td>
+						<td class="text-center">
+							<a class="btn  btn-link  btn-xs js-tooltip" title="Editar" 
+							   th:href="@{/prontuarios/{codigo}(codigo=${agenda.paciente.codigo},nome=${agenda.paciente.pessoa.nome})}"> 
+								<i class="glyphicon glyphicon-pencil"></i>
+							</a>
+							<a class="btn  btn-link  btn-xs  js-tooltip  js-exclusao-btn" title="Excluir" href="@{/}"
+									data:url="@{/}">
+								<i class="glyphicon glyphicon-remove"></i>
+							</a>							
+						</td>
+	                </tr>
+	                
+	                <tr th:if="${pagina.vazia}">
+	                	<td colspan="6">Nenhum pacinete encontrado</td>
+	                </tr>
+
+	             </tbody>
+         	</table>
+    	 </div>
+    	 
+    	 <iaff:pagination page="${pagina}"/>
+
+	</div>
+</section>
+</body>
+</html>

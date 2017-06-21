@@ -7,39 +7,28 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 @Entity
-@Table(name = "itemprontuario")
-public class ItemProntuario {
+@Table(name = "agenda")
+public class Agenda {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 
-	// bidirecional
-	@ManyToOne(optional = false)
-	@JoinColumn(name="codigo_paciente")
+	private LocalDateTime dataAgendamento;
+	
+	// unidirecional
+	@OneToOne(optional = false)
+	@JoinColumn(name = "codigo_paciente")
 	private Paciente paciente;
 	
 	// unidirecional
-	@OneToOne
+	@OneToOne(optional = false)
 	@JoinColumn(name = "codigo_usuarioprofissional")
 	private Usuario usuario;
-	
-	// unidirecional
-	@ManyToOne
-	@JoinColumn(name="codigo_tipoitemprontuario", nullable=false)
-	private TipoItemProntuario tipoitemprontuario;
-	
-	@NotBlank(message = "Valor é obrigatório")
-	private String Valor;
-	
-	private LocalDateTime dataLancamento;
 
 	public Long getCodigo() {
 		return codigo;
@@ -47,6 +36,14 @@ public class ItemProntuario {
 
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
+	}
+	
+	public LocalDateTime getDataAgendamento() {
+		return dataAgendamento;
+	}
+
+	public void setDataAgendamento(LocalDateTime dataAgendamento) {
+		this.dataAgendamento = dataAgendamento;
 	}
 
 	public Paciente getPaciente() {
@@ -64,31 +61,11 @@ public class ItemProntuario {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+
+	public String getDataAgendamentoString () {
+		return "" + this.dataAgendamento.getDayOfMonth() + "/" + this.dataAgendamento.getMonthValue() + "/" + this.dataAgendamento.getYear(); 
+	}
 	
-	public TipoItemProntuario getTipoitemprontuario() {
-		return tipoitemprontuario;
-	}
-
-	public void setTipoitemprontuario(TipoItemProntuario tipoitemprontuario) {
-		this.tipoitemprontuario = tipoitemprontuario;
-	}
-
-	public String getValor() {
-		return Valor;
-	}
-
-	public void setValor(String valor) {
-		Valor = valor;
-	}
-
-	public LocalDateTime getDataLancamento() {
-		return dataLancamento;
-	}
-
-	public void setDataLancamento(LocalDateTime dataLancamento) {
-		this.dataLancamento = dataLancamento;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -105,7 +82,7 @@ public class ItemProntuario {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ItemProntuario other = (ItemProntuario) obj;
+		Agenda other = (Agenda) obj;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;

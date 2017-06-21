@@ -3,6 +3,7 @@ package org.iaff.csiaff.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,15 +36,16 @@ public class Paciente implements Serializable {
 	
 	private String foneEmergencia;
 	
-	/* bidirecional
+	// bidirecional
 	@OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ItemProntuario> itensprontuario;
-	*/
 	
 	// unidirecional
+	/*
 	@OneToMany
 	@JoinColumn(name = "codigo_paciente", nullable=false)
 	private List<ItemProntuario> itensprontuario;
+	*/
 	
 	public Long getCodigo() {
 		return codigo;

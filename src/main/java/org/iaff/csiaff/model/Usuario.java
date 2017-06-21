@@ -55,8 +55,6 @@ public class Usuario implements Serializable {
 				, inverseJoinColumns = @JoinColumn(name = "codigo_grupo"))	
 	private List<Grupo> grupos;
 
-	// http://uaihebert.com/jpa-onetoone-unidirecional-e-bidirecional/
-	// http://uaihebert.com/jpa-mini-livro-primeiros-passos-e-conceitos-detalhados/19/
 	// http://forum.spring.io/forum/spring-projects/data/72442-jpa-optional-onetoone-not-optional
 	// http://webdev.jhuep.com/~jcs/ejava-javaee/coursedocs/content/html/jpa-relationex-one2one.html
 	@OneToOne(optional = false, fetch = FetchType.LAZY)

@@ -21,12 +21,13 @@
           			</a>
       
           			<ul class="aw-menu__list  aw-menu__list--sublist">
-			            <li class="aw-menu__item  aw-menu__item--link" iaff:menu="@{/prontuarios}">
-			            	<a th:href="@{/}">Prontuário</a>
+			            <li class="aw-menu__item  aw-menu__item--link" iaff:menu="@{/agendas}">
+			            	<a th:href="@{/agendas/{codigo}(codigo=${#authentication.principal.usuario.codigo})}">Agenda</a>
+            	
 			            </li>
 			            
 			            <li class="aw-menu__item  aw-menu__item--link" iaff:menu="@{/buscaprontuario}">
-			            	<a th:href="@{/}">Pesquisa</a>
+			            	<a th:href="@{/}">Prontuários</a>
 			            </li>
 			        </ul>
 			    </li>

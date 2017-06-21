@@ -6,3 +6,7 @@ INSERT INTO grupo_permissao (codigo_grupo, codigo_permissao) VALUES (1, 2);
 
 INSERT INTO usuario_grupo (codigo_usuario, codigo_grupo) VALUES (
 	(SELECT codigo FROM usuario WHERE email = 'admin@iaff.org'), 1);
+INSERT INTO usuario_grupo (codigo_usuario, codigo_grupo) VALUES (
+	(SELECT codigo FROM usuario WHERE email = 'flavia.fono@iaff.org'), 8);
+INSERT INTO usuario_grupo (codigo_usuario, codigo_grupo) VALUES (
+	(SELECT codigo FROM usuario WHERE email = 'fabiano.clinicogeral@iaff.org'), 4);

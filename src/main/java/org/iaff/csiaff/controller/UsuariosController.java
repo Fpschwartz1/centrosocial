@@ -50,6 +50,7 @@ public class UsuariosController {
 	public ModelAndView novo(Usuario usuario) {
 		ModelAndView mv = new ModelAndView("usuario/CadastroUsuario");
 		mv.addObject("grupos", grupos.findAll());
+		
 		return mv;
 	}
 	
