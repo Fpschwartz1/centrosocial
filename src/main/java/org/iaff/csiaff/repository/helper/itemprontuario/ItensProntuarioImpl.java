@@ -59,6 +59,7 @@ public class ItensProntuarioImpl implements ItensProntuarioQueries {
 	private void adicionarFiltro(ItemProntuarioFilter filtro, Criteria criteria) {
 		if (filtro != null) {
 			boolean tipoA = false;
+			int intA = 0;
 			
 			if (!StringUtils.isEmpty(filtro.getCodigoPaciente())) {
 				criteria.add(Restrictions.eq("paciente.codigo", filtro.getCodigoPaciente()));
@@ -75,7 +76,7 @@ public class ItensProntuarioImpl implements ItensProntuarioQueries {
 					// a comparação se dá no atributo grupo de TipoItemProntuario
 					dc.add(Restrictions.eq("tipoItem", filtro.getTiposItem().get(i)));
 					// se anamnese for selecionada, setar o flag
-					if(filtro.getTiposItem().get(i).name() == "A") tipoA = true;					 
+					if(filtro.getTiposItem().get(i).name() == "A") { tipoA = true; intA = i; }					 
 					// a coluna resultante da execução do critério é o atributo codigo de TipoItemProntuario 
 					dc.setProjection(Projections.property("codigo"));
 					
@@ -108,10 +109,10 @@ public class ItensProntuarioImpl implements ItensProntuarioQueries {
 					subqueries.add(Subqueries.propertyIn("tipoitemprontuario.codigo", dc));
 				}
 
-				//quando anamnese for incluida, incluir o grupo Clínica Geral
+				//quando anamnese for incluida, incluir na subquery de grupo
 				if(tipoA){
 					DetachedCriteria dc = DetachedCriteria.forClass(TipoItemProntuario.class);
-					dc.add(Restrictions.eq("grupo.codigo", 4L)); // 4L - Clínica Geral
+					dc.add(Restrictions.eq("tipoItem", filtro.getTiposItem().get(intA)));
 					dc.setProjection(Projections.property("codigo"));
 					subqueries.add(Subqueries.propertyIn("tipoitemprontuario.codigo", dc));
 				}

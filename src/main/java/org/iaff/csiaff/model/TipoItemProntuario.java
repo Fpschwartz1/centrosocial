@@ -29,7 +29,7 @@ public class TipoItemProntuario implements Serializable {
 	private Long codigo;
 	
 	@ManyToOne
-	@JoinColumn(name = "codigo_grupo", nullable=false)
+	@JoinColumn(name = "codigo_grupo") //, nullable=false)
 	private Grupo grupo;
 
 	@NotNull(message = "Obrigatório informar o tipo do item")

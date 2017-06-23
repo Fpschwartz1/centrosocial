@@ -1,6 +1,6 @@
 CREATE TABLE tipoitemprontuario (
     codigo BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
-    codigo_grupo BIGINT(20) NOT NULL,
+    codigo_grupo BIGINT(20), /* NOT NULL */
     tipo_item VARCHAR(1) NOT NULL, /* F - Ficha; P - Procedimento; A - Anamnese */
     tipo_campo VARCHAR(1) NOT NULL, /* T - Text; C - Combo; R - Radio */
     indicador_sigilo BIT(1) NOT NULL DEFAULT FALSE,
@@ -87,6 +87,7 @@ INSERT INTO tipoitemprontuario (codigo_grupo, tipo_item, tipo_campo, nome) VALUE
 INSERT INTO tipoitemprontuario (codigo_grupo, tipo_item, tipo_campo, nome) VALUES (4, 'P', 'T', 'Acelerador de Partículas');
 
 /* Clínica Geral - Anamnese */
+/*
 INSERT INTO tipoitemprontuario (codigo_grupo, tipo_item, tipo_campo, nome) VALUES (4, 'A', 'C', 'Aborto');
 INSERT INTO tipoitemprontuario (codigo_grupo, tipo_item, tipo_campo, nome) VALUES (4, 'A', 'T', 'Alergia a medicamentos');
 INSERT INTO tipoitemprontuario (codigo_grupo, tipo_item, tipo_campo, nome) VALUES (4, 'A', 'T', 'Altura');
@@ -100,6 +101,21 @@ INSERT INTO tipoitemprontuario (codigo_grupo, tipo_item, tipo_campo, nome) VALUE
 INSERT INTO tipoitemprontuario (codigo_grupo, tipo_item, tipo_campo, nome) VALUES (4, 'A', 'C', 'Filhos vivos');
 INSERT INTO tipoitemprontuario (codigo_grupo, tipo_item, tipo_campo, nome) VALUES (4, 'A', 'C', 'Filhos mortos');
 INSERT INTO tipoitemprontuario (codigo_grupo, tipo_item, tipo_campo, nome) VALUES (4, 'A', 'T', 'Vacinas');
+*/
+INSERT INTO tipoitemprontuario (tipo_item, tipo_campo, nome) VALUES ('A', 'C', 'Aborto');
+INSERT INTO tipoitemprontuario (tipo_item, tipo_campo, nome) VALUES ('A', 'T', 'Alergia a medicamentos');
+INSERT INTO tipoitemprontuario (tipo_item, tipo_campo, nome) VALUES ('A', 'T', 'Altura');
+INSERT INTO tipoitemprontuario (tipo_item, tipo_campo, nome) VALUES ('A', 'T', 'Peso');
+INSERT INTO tipoitemprontuario (tipo_item, tipo_campo, nome) VALUES ('A', 'R', 'Diabetes');
+INSERT INTO tipoitemprontuario (tipo_item, tipo_campo, nome) VALUES ('A', 'R', 'Hipertensão');
+INSERT INTO tipoitemprontuario (tipo_item, tipo_campo, nome) VALUES ('A', 'T', 'História familiar');
+INSERT INTO tipoitemprontuario (tipo_item, tipo_campo, nome) VALUES ('A', 'T', 'História pregressa');
+INSERT INTO tipoitemprontuario (tipo_item, tipo_campo, nome) VALUES ('A', 'T', 'Medicamentos');
+INSERT INTO tipoitemprontuario (tipo_item, tipo_campo, nome) VALUES ('A', 'T', 'Parto');
+INSERT INTO tipoitemprontuario (tipo_item, tipo_campo, nome) VALUES ('A', 'C', 'Filhos vivos');
+INSERT INTO tipoitemprontuario (tipo_item, tipo_campo, nome) VALUES ('A', 'C', 'Filhos mortos');
+INSERT INTO tipoitemprontuario (tipo_item, tipo_campo, nome) VALUES ('A', 'T', 'Vacinas');
+
 
 /* Neuropediatria - Procedimentos */
 INSERT INTO tipoitemprontuario (codigo_grupo, tipo_item, tipo_campo, nome) VALUES (9, 'P', 'T', 'Consulta');
