@@ -2,7 +2,7 @@ CREATE TABLE tipoitemprontuario (
     codigo BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
     codigo_grupo BIGINT(20), /* NOT NULL */
     tipo_item VARCHAR(1) NOT NULL, /* F - Ficha; P - Procedimento; A - Anamnese */
-    tipo_campo VARCHAR(1) NOT NULL, /* T - Text; C - Combo; R - Radio */
+    tipo_campo VARCHAR(1) NOT NULL, /* T - Text; C - Combo */
     indicador_sigilo BIT(1) NOT NULL DEFAULT FALSE,
     nome VARCHAR(80) NOT NULL,
     FOREIGN KEY (codigo_grupo) REFERENCES grupo(codigo)
@@ -106,8 +106,8 @@ INSERT INTO tipoitemprontuario (tipo_item, tipo_campo, nome) VALUES ('A', 'C', '
 INSERT INTO tipoitemprontuario (tipo_item, tipo_campo, nome) VALUES ('A', 'T', 'Alergia a medicamentos');
 INSERT INTO tipoitemprontuario (tipo_item, tipo_campo, nome) VALUES ('A', 'T', 'Altura');
 INSERT INTO tipoitemprontuario (tipo_item, tipo_campo, nome) VALUES ('A', 'T', 'Peso');
-INSERT INTO tipoitemprontuario (tipo_item, tipo_campo, nome) VALUES ('A', 'R', 'Diabetes');
-INSERT INTO tipoitemprontuario (tipo_item, tipo_campo, nome) VALUES ('A', 'R', 'Hipertensão');
+INSERT INTO tipoitemprontuario (tipo_item, tipo_campo, nome) VALUES ('A', 'T', 'Diabetes');
+INSERT INTO tipoitemprontuario (tipo_item, tipo_campo, nome) VALUES ('A', 'T', 'Hipertensão');
 INSERT INTO tipoitemprontuario (tipo_item, tipo_campo, nome) VALUES ('A', 'T', 'História familiar');
 INSERT INTO tipoitemprontuario (tipo_item, tipo_campo, nome) VALUES ('A', 'T', 'História pregressa');
 INSERT INTO tipoitemprontuario (tipo_item, tipo_campo, nome) VALUES ('A', 'T', 'Medicamentos');

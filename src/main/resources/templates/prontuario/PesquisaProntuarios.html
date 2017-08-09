@@ -23,61 +23,86 @@
 					 -->
 				</div>
 				
+				<div class="col-sm-2">
+					<div class="aw-page-header-controls">
+						<a class="btn  btn-default" 
+						 	th:href="@{/prontuarios/novo/{codigo}(codigo=${itemProntuarioFilter.codigoPaciente},
+						 	codigoProfissional=${#authentication.principal.usuario.codigo})}">
+							<i class="glyphicon  glyphicon-plus-sign"></i> <span class="hidden-xs  hidden-sm">Novo item</span>
+						</a>
+					</div>
+				</div>
+				
 			</div>
 		</div>
 	</div>
 	
 	<div class="container-fluid">
 
-		<form method="GET" th:object="${itemProntuarioFilter}" th:action="@{/prontuarios}">
-			
-			<input type="hidden" class="form-control" id="codigoPaciente" th:field="*{codigoPaciente}"/>
-			<input type="hidden" class="form-control" id="nomePaciente" th:field="*{nomePaciente}"/>
-			
-			<div class="row">
-				<div class="form-group  col-sm-12">
-					<label class="control-label">Filtro - grupos</label> 
-					<div>
-						<th:block th:each="grupo : ${grupos}">
-	  						<div class="checkbox  checkbox-inline"> 
-		    					<input type="checkbox" th:value="${grupo.codigo}" th:field="*{grupos}"/>
-		    					<label th:for="${#ids.prev('grupos')}" th:text="${grupo.nome}">Administrador</label>
-	    					</div>
-	    				</th:block>
-					</div>
-  				</div>
-			</div>
-			
-			<div class="row">
-				<div class="form-group  col-sm-12">
-					<label class="control-label">Filtro - itens</label> 
-					<div>
-						
-						<th:block th:each="tipo : ${tiposItem}">
-	  						<div class="checkbox  checkbox-inline"> 
-		    					<input type="checkbox" th:value="${tipo}" th:field="*{tiposItem}"/>
-		    					<label th:text="${tipo.descricao}">Anamnese</label>
-	    					</div>
-	    				</th:block>
+		<!-- Botao Collapse -->
+		<div class="form-group">
+			<button class="btn btn-info js-collapse" type="button"
+				data-toggle="collapse" data-target="#collapseFiltro"
+				aria-expanded="false" aria-controls="collapseFiltro">Opções de filtragem</button>
+		</div>
+
+		<div class="collapse" id="collapseFiltro">
+			<form method="GET" th:object="${itemProntuarioFilter}" th:action="@{/prontuarios}">
+	
+					<input type="hidden" class="form-control" id="codigoPaciente" th:field="*{codigoPaciente}"/>
+					<input type="hidden" class="form-control" id="nomePaciente" th:field="*{nomePaciente}"/>
 					
+					<div class="row">
+						<div class="form-group  col-sm-12">
+							<label class="control-label">Grupo</label> 
+							<div>
+								<th:block th:each="grupo : ${grupos}">
+			  						<div class="checkbox  checkbox-inline"> 
+				    					<input type="checkbox" th:value="${grupo.codigo}" th:field="*{grupos}"/>
+				    					<label th:for="${#ids.prev('grupos')}" th:text="${grupo.nome}">Administrador</label>
+			    					</div>
+			    				</th:block>
+							</div>
+		  				</div>
 					</div>
-  				</div>
-			</div>
-
-			<button type="submit" class="btn  btn-primary">Filtrar</button>
-		</form>
-
+					
+					<div class="row">
+						<div class="form-group  col-sm-12">
+							<label class="control-label">Tipo do item</label> 
+							<div>
+								
+								<th:block th:each="tipo : ${tiposItem}">
+			  						<div class="checkbox  checkbox-inline"> 
+				    					<input type="checkbox" th:value="${tipo}" th:field="*{tiposItem}"/>
+				    					<label th:text="${tipo.descricao}">Anamnese</label>
+			    					</div>
+			    				</th:block>
+							
+							</div>
+		  				</div>
+					</div>
+		
+					<button type="submit" class="btn  btn-primary">Filtrar</button>
+				
+			</form>
+		</div>
 		
 		<div class="table-responsive  bw-tabela-simples">
 		     
         	<table id="example" class="table  table-hover">
 	            <thead>
 	            	<tr>
-	            	    <th class="table-pessoas-col-nome">Grupo</th>
+	            	    <th class="table-pessoas-col-nome">
+
+	            	    	<iaff:order page="${pagina}" field="nomeGrupo" text="Grupo"/>
+
+	            	    </th>
 	            	    <th class="table-pessoas-col-nome">Tipo</th>
 	            		<th class="table-pessoas-col-nome">Item</th>
 	                	<th class="table-pessoas-col-nome">Valor</th>
-	                	<th class="table-pessoas-col-nome">Lançamento</th>
+	                	<th class="table-pessoas-col-nome">
+	            	    	<iaff:order page="${pagina}" field="dataLancamento" text="Lançamento"/>
+	                	</th>
 	                	<th class="table-pessoas-col-nome">Profissional</th>
 	                 	<th class="table-col-acoes">Operações</th>
 					</tr>
@@ -88,12 +113,16 @@
 					<tr  th:each="item :  ${pagina.conteudo}">
 					    <!-- 
 						<td th:text="${item.usuario.grupos[0].nome}"></td>
-						-->  
-						<td th:text="${((item.tipoitemprontuario.tipoItem.descricao == 'Anamnese') ? 'Anamnese' : item.tipoitemprontuario.grupo.nome)}"></td>
-						<td th:text="${item.tipoitemprontuario.tipoItem}"></td>						
+						-->
+						<!--
+						
+						<td th:text="${((item.tipoitemprontuario.tipoItem.descricao == 'Anamnese') ? 'Anamnese' : item.tipoitemprontuario.grupo.nome)}"></td>  
+						-->
+						<td th:text="${item.nomeGrupo}"></td>
+						<td th:text="${item.tipoItem}"></td>						
 						<td th:text="${item.tipoitemprontuario.nome}"></td>
 						<td th:text="${item.valor}"></td>
-						<td th:text="${item.dataLancamento}"></td>
+						<td th:text="${item.dataLancamentoString}"></td>
 						<td th:text="${item.usuario.nome}"></td>
 						
 						<td class="text-center">

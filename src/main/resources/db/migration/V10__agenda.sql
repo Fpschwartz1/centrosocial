@@ -8,5 +8,5 @@ CREATE TABLE agenda (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO agenda (data_agendamento, codigo_paciente, codigo_usuarioprofissional) VALUES ('2017-05-12', 3, 2);
-INSERT INTO agenda (data_agendamento, codigo_paciente, codigo_usuarioprofissional) VALUES ('2017-05-02', 3, 2);
+INSERT INTO agenda (data_agendamento, codigo_paciente, codigo_usuarioprofissional) VALUES ('2017-05-02', 3, 3);
 INSERT INTO agenda (data_agendamento, codigo_paciente, codigo_usuarioprofissional) VALUES ('2017-05-02', 4, 3);

@@ -63,7 +63,12 @@ public class Agenda {
 	}
 
 	public String getDataAgendamentoString () {
-		return "" + this.dataAgendamento.getDayOfMonth() + "/" + this.dataAgendamento.getMonthValue() + "/" + this.dataAgendamento.getYear(); 
+		return ""    + String.format("%02d", this.dataAgendamento.getDayOfMonth()) +
+		       "/"   + String.format("%02d", this.dataAgendamento.getMonthValue()) +
+		       "/"   + String.format("%02d", this.dataAgendamento.getYear())+
+			   " - " + String.format("%02d", this.dataAgendamento.getHour()) +
+			   ":"   + String.format("%02d", this.dataAgendamento.getMinute()) +
+			   ":"   + String.format("%02d", this.dataAgendamento.getSecond()); 
 	}
 	
 	@Override

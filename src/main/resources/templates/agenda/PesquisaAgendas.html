@@ -40,7 +40,7 @@
         	<table class="table  table-hover">
 	            <thead>
 	            	<tr>
-	            		<th class="table-pessoas-col-documento">Data agendamento</th>
+	            		<th class="table-pessoas-col-nome">Data/hora agendamento</th>
 	                	<th class="table-pessoas-col-nome">Paciente</th>
 	                	<th class="table-pessoas-col-nome">Profissional</th>
 	                 	<th class="table-col-acoes">Operações</th>
@@ -49,7 +49,7 @@
 			
 	            <tbody>
 					<tr th:each="agenda : ${pagina.conteudo}">  
-						<td class="text-right" th:text="${agenda.dataAgendamentoString}"></td>
+						<td th:text="${agenda.dataAgendamentoString}"></td>
 						<td th:text="${agenda.paciente.pessoa.nome}"></td>
 						<td th:text="${agenda.usuario.nome}"></td>
 						<td class="text-center">

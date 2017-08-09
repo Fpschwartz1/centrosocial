@@ -18,6 +18,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tipoitemprontuario")
 public class TipoItemProntuario implements Serializable {
@@ -28,6 +30,7 @@ public class TipoItemProntuario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "codigo_grupo") //, nullable=false)
 	private Grupo grupo;
@@ -45,10 +48,12 @@ public class TipoItemProntuario implements Serializable {
 	// indicador de sigilo
 	private boolean indicadorSigilo;
 	
+	@JsonIgnore
 	@OneToMany
 	@JoinColumn(name = "codigo_tipoitemprontuario")
 	private List<OpcoesCampoItem> opcoescampoitem;
 	
+	@JsonIgnore
 	@OneToMany
 	@JoinColumn(name = "codigo_tipoitemprontuario")
 	private List<ItemProntuario> itemprontuario;
@@ -56,7 +61,6 @@ public class TipoItemProntuario implements Serializable {
 	@NotBlank(message = "Nome é obrigatório")
 	private String nome;
 
-	
 
 	public Long getCodigo() {
 		return codigo;
@@ -73,7 +77,7 @@ public class TipoItemProntuario implements Serializable {
 	public void setGrupo(Grupo grupo) {
 		this.grupo = grupo;
 	}
-
+	
 	public TipoItem getTipoItem() {
 		return tipoItem;
 	}
