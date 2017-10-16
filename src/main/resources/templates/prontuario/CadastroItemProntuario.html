@@ -45,7 +45,7 @@
 		
 			<!-- inicio novos campos -->
 			<div class="row">
-				<div class="form-group  col-sm-4">
+				<div class="form-group  col-sm-6">
 					<label for="tipoItem" class="control-label">Item</label>
 					<div>
 						<select id="tipoItem" class="form-control" name="tipoItem" th:field="*{tipoItem}">
@@ -57,12 +57,13 @@
 			</div>
 			
 			<div class="row">
-				<div class="form-group  col-sm-4">
+				<div class="form-group  col-sm-6">
 					<label for="tiposItensProntuario" class="control-label">Categoria</label>
 					<div>
-					    <input type="hidden" id="inputHiddenTipoItemSelecionado" th:value="*{tipoitemprontuario} != null ? *{tipoitemprontuario.codigo}"/>
+						<!-- type="hidden" -->
+					    <input  id="inputHiddenTipoItemProntuarioSelecionado" th:value="*{tipoitemprontuario} != null ? *{tipoitemprontuario.codigo}"/>
 						<select id="tipoItemProntuario" class="form-control"  
-							data:url="@{/prontuarios}" 
+							data:url="@{/prontuarios/tipos}" 
 							data:codgrupo="*{usuario.grupos[0].codigo}"
 							th:field="*{tipoitemprontuario}">
 						</select>
@@ -73,6 +74,26 @@
 					</div>
 				</div>
 			</div>
+			
+			<div class="row">
+				<div class="form-group  col-sm-6">
+					<label for="opcoesCampoItem" class="control-label">Opção</label>
+					<div>
+						<!-- type="hidden" -->
+					    <input id="inputHiddenOpcaoItemSelecionada" th:value="*{opcaocampoitem} != null ? *{opcaocampoitem.codigo}"/>
+						<select id="opcaoCampoItem" class="form-control"  
+							data:url="@{/prontuarios/opcoes}" 
+							th:field="*{opcaocampoitem}">
+						</select>
+						
+						<div class="bw-field-action__icon  js-img-loading" style="display: none">
+							<img th:src="@{/images/mini-loading.gif}"/>
+						</div>
+					</div>
+				</div>
+			</div>			
+			
+			
 			
 			<div class="row">
 				<div class="form-group  col-sm-6">

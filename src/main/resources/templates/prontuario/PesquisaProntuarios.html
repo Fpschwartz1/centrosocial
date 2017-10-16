@@ -99,6 +99,7 @@
 	            	    </th>
 	            	    <th class="table-pessoas-col-nome">Tipo</th>
 	            		<th class="table-pessoas-col-nome">Item</th>
+	            		<th class="table-pessoas-col-nome">Opção</th>
 	                	<th class="table-pessoas-col-nome">Valor</th>
 	                	<th class="table-pessoas-col-nome">
 	            	    	<iaff:order page="${pagina}" field="dataLancamento" text="Lançamento"/>
@@ -119,8 +120,9 @@
 						<td th:text="${((item.tipoitemprontuario.tipoItem.descricao == 'Anamnese') ? 'Anamnese' : item.tipoitemprontuario.grupo.nome)}"></td>  
 						-->
 						<td th:text="${item.nomeGrupo}"></td>
-						<td th:text="${item.tipoItem}"></td>						
+						<td th:text="${item.tipoItem}"></td>
 						<td th:text="${item.tipoitemprontuario.nome}"></td>
+						<td th:text="${item.nomeOpcaocampoitem}"></td>						
 						<td th:text="${item.valor}"></td>
 						<td th:text="${item.dataLancamentoString}"></td>
 						<td th:text="${item.usuario.nome}"></td>

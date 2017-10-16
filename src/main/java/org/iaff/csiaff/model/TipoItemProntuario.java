@@ -51,7 +51,7 @@ public class TipoItemProntuario implements Serializable {
 	@JsonIgnore
 	@OneToMany
 	@JoinColumn(name = "codigo_tipoitemprontuario")
-	private List<OpcoesCampoItem> opcoescampoitem;
+	private List<OpcaoCampoItem> opcoescampoitem;
 	
 	@JsonIgnore
 	@OneToMany
@@ -102,11 +102,11 @@ public class TipoItemProntuario implements Serializable {
 		this.indicadorSigilo = indicadorSigilo;
 	}
 
-	public List<OpcoesCampoItem> getOpcoescampoitem() {
+	public List<OpcaoCampoItem> getOpcoescampoitem() {
 		return opcoescampoitem;
 	}
 
-	public void setOpcoescampoitem(List<OpcoesCampoItem> opcoescampoitem) {
+	public void setOpcoescampoitem(List<OpcaoCampoItem> opcoescampoitem) {
 		this.opcoescampoitem = opcoescampoitem;
 	}
 

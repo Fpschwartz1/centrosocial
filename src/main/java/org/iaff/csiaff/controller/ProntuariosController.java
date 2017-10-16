@@ -9,12 +9,14 @@ import javax.validation.Valid;
 
 import org.iaff.csiaff.controller.page.PageWrapper;
 import org.iaff.csiaff.model.ItemProntuario;
+import org.iaff.csiaff.model.OpcaoCampoItem;
 import org.iaff.csiaff.model.Paciente;
 import org.iaff.csiaff.model.TipoItem;
 import org.iaff.csiaff.model.TipoItemProntuario;
 import org.iaff.csiaff.model.Usuario;
 import org.iaff.csiaff.repository.Grupos;
 import org.iaff.csiaff.repository.ItensProntuario;
+import org.iaff.csiaff.repository.OpcoesCampoItem;
 import org.iaff.csiaff.repository.Pacientes;
 import org.iaff.csiaff.repository.TiposItensProntuario;
 import org.iaff.csiaff.repository.Usuarios;
@@ -43,6 +45,9 @@ public class ProntuariosController {
 	
 	@Autowired
 	private TiposItensProntuario tiposItensProntuario;
+	
+	@Autowired
+	private OpcoesCampoItem opcoesCampoItem;
 	
 	@Autowired
 	private Grupos grupos;
@@ -74,7 +79,7 @@ public class ProntuariosController {
 		return mv;
 	}
 	
-	@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/tipos", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<TipoItemProntuario> pesquisarTipoItemProntuario(
 			@RequestParam(name = "tipoItem", defaultValue = "A") String tipoItem,
 			@RequestParam(name = "codigoGrupo", defaultValue = "A") Long codigoGrupo){
@@ -86,9 +91,17 @@ public class ProntuariosController {
 		} else {
 			return tiposItensProntuario.findByGrupoAndTipoItem(grupos.findOne(codigoGrupo), ti);
 		}
+	}
+	
+
+	@RequestMapping(value = "/opcoes", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<OpcaoCampoItem> pesquisarOpcaoCampoItem(
+			@RequestParam(name = "codigoTipoItemProntuario") Long codigoTipoItemProntuario){
 		
+		return opcoesCampoItem.findByTipoItemProntuario(tiposItensProntuario.findOne(codigoTipoItemProntuario));
 		
 	}
+
 
 	// chamado a partir da lista da agenda 
 	@GetMapping("/{codigo}")

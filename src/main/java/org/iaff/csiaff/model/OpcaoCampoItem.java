@@ -6,13 +6,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-@Table(name = "opcoescampoitem")
-public class OpcoesCampoItem implements Serializable {
+@Table(name = "opcaocampoitem")
+public class OpcaoCampoItem implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -21,11 +23,10 @@ public class OpcoesCampoItem implements Serializable {
 	private Long codigo;
 	
 	// http://blog.triadworks.com.br/jpa-por-que-voce-deveria-evitar-relacionamento-bidirecional
-	/*
 	@ManyToOne
 	@JoinColumn(name = "codigo_tipoitemprontuario")
 	private TipoItemProntuario tipoItemProntuario;
-	*/
+
 	
 	@NotBlank(message = "Nome é obrigatório")
 	private String nome;
@@ -36,6 +37,14 @@ public class OpcoesCampoItem implements Serializable {
 
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
+	}
+
+	public TipoItemProntuario getTipoItemProntuario() {
+		return tipoItemProntuario;
+	}
+
+	public void setTipoItemProntuario(TipoItemProntuario tipoItemProntuario) {
+		this.tipoItemProntuario = tipoItemProntuario;
 	}
 
 	public String getNome() {
@@ -62,7 +71,7 @@ public class OpcoesCampoItem implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		OpcoesCampoItem other = (OpcoesCampoItem) obj;
+		OpcaoCampoItem other = (OpcaoCampoItem) obj;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;

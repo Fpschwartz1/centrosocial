@@ -15,6 +15,7 @@ CREATE TABLE itemprontuario (
     nome_grupo VARCHAR(50) NOT NULL, /* redundancia controlada */
     tipo_item VARCHAR(1) NOT NULL,   /* redundancia controlada */
     codigo_tipoitemprontuario BIGINT(20) NOT NULL,
+    codigo_opcaocampoitem BIGINT(20),
     valor VARCHAR(255) NOT NULL,
     data_lancamento DATETIME NOT NULL DEFAULT "2017-07-28", /* NOW() */
     FOREIGN KEY (codigo_paciente) REFERENCES paciente(codigo),

@@ -53,6 +53,10 @@ public class ItemProntuario implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="codigo_tipoitemprontuario", nullable=false)
 	private TipoItemProntuario tipoitemprontuario;
+
+	@ManyToOne
+	@JoinColumn(name="codigo_opcaocampoitem")
+	private OpcaoCampoItem opcaocampoitem;
 	
 	@NotBlank(message = "Conteúdo é obrigatório")
 	private String Valor;
@@ -107,6 +111,20 @@ public class ItemProntuario implements Serializable {
 		this.tipoitemprontuario = tipoitemprontuario;
 	}
 	
+	public OpcaoCampoItem getOpcaocampoitem() {
+		return opcaocampoitem;
+	}
+
+	public void setOpcaocampoitem(OpcaoCampoItem opcaocampoitem) {
+		this.opcaocampoitem = opcaocampoitem;
+	}
+	
+	public String getNomeOpcaocampoitem() {
+		if(opcaocampoitem == null) return "";
+		return opcaocampoitem.getNome();
+	}
+
+
 	public String getValor() {
 		return Valor;
 	}

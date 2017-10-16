@@ -8,7 +8,7 @@ CREATE TABLE tipoitemprontuario (
     FOREIGN KEY (codigo_grupo) REFERENCES grupo(codigo)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE opcoescampoitem (
+CREATE TABLE opcaocampoitem (
     codigo BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
     codigo_tipoitemprontuario BIGINT(20) NOT NULL,
     nome VARCHAR(80) NOT NULL,
@@ -17,25 +17,25 @@ CREATE TABLE opcoescampoitem (
 
 /* Fonoaudiologia - Ficha */
 INSERT INTO tipoitemprontuario (codigo_grupo, tipo_item, tipo_campo, indicador_sigilo, nome) VALUES (8, 'F', 'T', 1, 'Alimentação');
+	INSERT INTO opcaocampoitem (codigo_tipoitemprontuario, nome) VALUES (1, 'Sólida');
+    INSERT INTO opcaocampoitem (codigo_tipoitemprontuario, nome) VALUES (1, 'Líquida');
+    INSERT INTO opcaocampoitem (codigo_tipoitemprontuario, nome) VALUES (1, 'Pastosa');
+    INSERT INTO opcaocampoitem (codigo_tipoitemprontuario, nome) VALUES (1, 'Variada');
 INSERT INTO tipoitemprontuario (codigo_grupo, tipo_item, tipo_campo, indicador_sigilo, nome) VALUES (8, 'F', 'C', 1, 'Amamentação');
-	INSERT INTO opcoescampoitem (codigo_tipoitemprontuario, nome) VALUES (2, 'Sólida');
-    INSERT INTO opcoescampoitem (codigo_tipoitemprontuario, nome) VALUES (2, 'Líquida');
-    INSERT INTO opcoescampoitem (codigo_tipoitemprontuario, nome) VALUES (2, 'Pastosa');
-    INSERT INTO opcoescampoitem (codigo_tipoitemprontuario, nome) VALUES (2, 'Variada');
 INSERT INTO tipoitemprontuario (codigo_grupo, tipo_item, tipo_campo, indicador_sigilo, nome) VALUES (8, 'F', 'T', 1, 'Ambiente Escolar');
 INSERT INTO tipoitemprontuario (codigo_grupo, tipo_item, tipo_campo, indicador_sigilo, nome) VALUES (8, 'F', 'T', 1, 'Ambiente Familiar');
 INSERT INTO tipoitemprontuario (codigo_grupo, tipo_item, tipo_campo, indicador_sigilo, nome) VALUES (8, 'F', 'T', 1, 'Controle Esfíncters');
 INSERT INTO tipoitemprontuario (codigo_grupo, tipo_item, tipo_campo, indicador_sigilo, nome) VALUES (8, 'F', 'T', 1, 'Desenvolvimento da Linguagem');
 INSERT INTO tipoitemprontuario (codigo_grupo, tipo_item, tipo_campo, indicador_sigilo, nome) VALUES (8, 'F', 'C', 1, 'Desenvolvimento Neuropsicomotor');
-	INSERT INTO opcoescampoitem (codigo_tipoitemprontuario, nome) VALUES (7, 'Sustentação da Cabeça');
-    INSERT INTO opcoescampoitem (codigo_tipoitemprontuario, nome) VALUES (7, 'Rolar');
-    INSERT INTO opcoescampoitem (codigo_tipoitemprontuario, nome) VALUES (7, 'Sentar');
-    INSERT INTO opcoescampoitem (codigo_tipoitemprontuario, nome) VALUES (7, 'Engatinhar');
-	INSERT INTO opcoescampoitem (codigo_tipoitemprontuario, nome) VALUES (7, 'Andar');
+	INSERT INTO opcaocampoitem (codigo_tipoitemprontuario, nome) VALUES (7, 'Sustentação da Cabeça');
+    INSERT INTO opcaocampoitem (codigo_tipoitemprontuario, nome) VALUES (7, 'Rolar');
+    INSERT INTO opcaocampoitem (codigo_tipoitemprontuario, nome) VALUES (7, 'Sentar');
+    INSERT INTO opcaocampoitem (codigo_tipoitemprontuario, nome) VALUES (7, 'Engatinhar');
+	INSERT INTO opcaocampoitem (codigo_tipoitemprontuario, nome) VALUES (7, 'Andar');
 INSERT INTO tipoitemprontuario (codigo_grupo, tipo_item, tipo_campo, indicador_sigilo, nome) VALUES (8, 'F', 'T', 1, 'Gestação');
 INSERT INTO tipoitemprontuario (codigo_grupo, tipo_item, tipo_campo, indicador_sigilo, nome) VALUES (8, 'F', 'C', 1, 'Hábitos Viciosos');
-    INSERT INTO opcoescampoitem (codigo_tipoitemprontuario, nome) VALUES (9, 'Sucção Digital');
-	INSERT INTO opcoescampoitem (codigo_tipoitemprontuario, nome) VALUES (9, 'Chupeta');
+    INSERT INTO opcaocampoitem (codigo_tipoitemprontuario, nome) VALUES (9, 'Sucção Digital');
+	INSERT INTO opcaocampoitem (codigo_tipoitemprontuario, nome) VALUES (9, 'Chupeta');
 INSERT INTO tipoitemprontuario (codigo_grupo, tipo_item, tipo_campo, indicador_sigilo, nome) VALUES (8, 'F', 'T', 1, 'Queixa');
 INSERT INTO tipoitemprontuario (codigo_grupo, tipo_item, tipo_campo, indicador_sigilo, nome) VALUES (8, 'F', 'T', 1, 'Relatório Reunião');
 INSERT INTO tipoitemprontuario (codigo_grupo, tipo_item, tipo_campo, indicador_sigilo, nome) VALUES (8, 'F', 'T', 1, 'Relatório Técnico');
