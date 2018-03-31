@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.iaff.csiaff.model.Agenda;
@@ -67,6 +68,14 @@ public class AgendasImpl implements AgendasQueries {
 				}
 				criteria.add(ou);
 			}
+			if(filtro.getDataAgendamento() != null){
+				criteria.add(Restrictions.eq("dataAgendamento", filtro.getDataAgendamento()));
+			}
+			if(filtro.getGrupos() != null){
+
+			}
+			criteria.addOrder(Order.asc("usuario"));
+			criteria.addOrder(Order.asc("horaAgendamento"));
 		}
 	}
 

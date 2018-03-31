@@ -4,6 +4,7 @@ CREATE TABLE usuario (
     email VARCHAR(50) NOT NULL,
     senha VARCHAR(120) NOT NULL,
     ativo BOOLEAN DEFAULT true NOT NULL,
+    duracao_consulta INT,
     codigo_pessoa BIGINT(20) NOT NULL,
     FOREIGN KEY (codigo_pessoa) REFERENCES pessoa(codigo)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -9,4 +9,5 @@ public interface Grupos extends JpaRepository<Grupo, Long> {
 
 	List<Grupo> findByAnamnese(boolean anamnese);
 	
+	List<Grupo> findByRegistroprofissionalNotNull();
 }

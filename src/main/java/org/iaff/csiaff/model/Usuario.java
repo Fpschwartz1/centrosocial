@@ -48,6 +48,8 @@ public class Usuario implements Serializable {
 	private String confirmacaoSenha;
 	
 	private Boolean ativo;
+	
+	private int duracaoConsulta;
 
 	@Size(min = 1, message = "Selecione pelo menos um grupo")
 	@ManyToMany
@@ -104,6 +106,14 @@ public class Usuario implements Serializable {
 
 	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
+	}
+
+	public int getDuracaoConsulta() {
+		return duracaoConsulta;
+	}
+
+	public void setDuracaoConsulta(int duracaoConsulta) {
+		this.duracaoConsulta = duracaoConsulta;
 	}
 
 	public List<Grupo> getGrupos() {

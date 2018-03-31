@@ -1,6 +1,6 @@
 package org.iaff.csiaff.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,10 +18,12 @@ public class Agenda {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 
-	private LocalDateTime dataAgendamento;
+	private LocalDate dataAgendamento;
+	
+	private String horaAgendamento;
 	
 	// unidirecional
-	@OneToOne(optional = false)
+	@OneToOne(optional = true)
 	@JoinColumn(name = "codigo_paciente")
 	private Paciente paciente;
 	
@@ -38,12 +40,20 @@ public class Agenda {
 		this.codigo = codigo;
 	}
 	
-	public LocalDateTime getDataAgendamento() {
+	public LocalDate getDataAgendamento() {
 		return dataAgendamento;
 	}
 
-	public void setDataAgendamento(LocalDateTime dataAgendamento) {
+	public void setDataAgendamento(LocalDate dataAgendamento) {
 		this.dataAgendamento = dataAgendamento;
+	}
+
+	public String getHoraAgendamento() {
+		return horaAgendamento;
+	}
+
+	public void setHoraAgendamento(String horaAgendamento) {
+		this.horaAgendamento = horaAgendamento;
 	}
 
 	public Paciente getPaciente() {
@@ -63,12 +73,9 @@ public class Agenda {
 	}
 
 	public String getDataAgendamentoString () {
-		return ""    + String.format("%02d", this.dataAgendamento.getDayOfMonth()) +
-		       "/"   + String.format("%02d", this.dataAgendamento.getMonthValue()) +
-		       "/"   + String.format("%02d", this.dataAgendamento.getYear())+
-			   " - " + String.format("%02d", this.dataAgendamento.getHour()) +
-			   ":"   + String.format("%02d", this.dataAgendamento.getMinute()) +
-			   ":"   + String.format("%02d", this.dataAgendamento.getSecond()); 
+		return ""  + String.format("%02d", this.dataAgendamento.getDayOfMonth()) +
+		       "/" + String.format("%02d", this.dataAgendamento.getMonthValue()) +
+		       "/" + String.format("%02d", this.dataAgendamento.getYear());
 	}
 	
 	@Override
