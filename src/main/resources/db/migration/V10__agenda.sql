@@ -12,3 +12,4 @@ INSERT INTO agenda (data_agendamento, hora_agendamento, codigo_paciente, codigo_
 INSERT INTO agenda (data_agendamento, hora_agendamento, codigo_paciente, codigo_usuarioprofissional) VALUES ('2018-03-31', '08:15', 3, 3);
 INSERT INTO agenda (data_agendamento, hora_agendamento, codigo_paciente, codigo_usuarioprofissional) VALUES ('2018-03-31', '08:00', 4, 3);
 INSERT INTO agenda (data_agendamento, hora_agendamento, codigo_paciente, codigo_usuarioprofissional) VALUES ('2018-03-31', '08:00', NULL, 2);
+INSERT INTO agenda (data_agendamento, hora_agendamento, codigo_paciente, codigo_usuarioprofissional) VALUES ('2018-03-31', '08:00', 4, 4);

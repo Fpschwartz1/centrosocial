@@ -8,10 +8,12 @@ import javax.persistence.PersistenceContext;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.iaff.csiaff.model.Agenda;
+import org.iaff.csiaff.model.Usuario;
 import org.iaff.csiaff.repository.Agendas;
 import org.iaff.csiaff.repository.Usuarios;
 import org.iaff.csiaff.repository.filter.AgendaFilter;
@@ -21,6 +23,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 public class AgendasImpl implements AgendasQueries {
 
@@ -71,8 +74,11 @@ public class AgendasImpl implements AgendasQueries {
 			if(filtro.getDataAgendamento() != null){
 				criteria.add(Restrictions.eq("dataAgendamento", filtro.getDataAgendamento()));
 			}
-			if(filtro.getGrupos() != null){
-
+			if(filtro.getGrupos() != null && !filtro.getGrupos().isEmpty()){
+				List<Usuario> nusuarios = usuarios.usuariosDoGrupoCujoNome(filtro.getGrupos().get(0), filtro.getNome());
+				Disjunction ou = Restrictions.disjunction();
+				nusuarios.forEach(u -> ou.add(Restrictions.eq("usuario", u)));
+				criteria.add(ou);
 			}
 			criteria.addOrder(Order.asc("usuario"));
 			criteria.addOrder(Order.asc("horaAgendamento"));

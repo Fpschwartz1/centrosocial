@@ -3,6 +3,7 @@ package org.iaff.csiaff.repository.helper.usuario;
 import java.util.List;
 import java.util.Optional;
 
+import org.iaff.csiaff.model.Grupo;
 import org.iaff.csiaff.model.Usuario;
 import org.iaff.csiaff.repository.filter.UsuarioFilter;
 import org.springframework.data.domain.Page;
@@ -18,4 +19,5 @@ public interface UsuariosQueries {
 	
 	public Usuario buscarComGrupos(Long codigo);
 	
+	public List<Usuario> usuariosDoGrupoCujoNome(Grupo grupo, String nome);
 }

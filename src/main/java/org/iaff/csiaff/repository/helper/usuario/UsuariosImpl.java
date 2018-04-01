@@ -53,6 +53,25 @@ public class UsuariosImpl implements UsuariosQueries {
 				.setParameter("usuario", usuario)
 				.getResultList();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	@Override
+	public List<Usuario> usuariosDoGrupoCujoNome(Grupo grupo, String nome) {
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(Usuario.class);
+
+		List<Grupo> grupos = new ArrayList<Grupo>();
+		grupos.add(grupo);
+
+		UsuarioFilter filtro = new UsuarioFilter();
+		filtro.setGrupos(grupos);
+		filtro.setNome(nome);
+		
+		adicionarFiltro(filtro, criteria);
+		List<Usuario> filtrados = criteria.list();
+	
+		return filtrados;
+	}
 
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
