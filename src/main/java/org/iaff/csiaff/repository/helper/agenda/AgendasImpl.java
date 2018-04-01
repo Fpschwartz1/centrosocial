@@ -8,7 +8,6 @@ import javax.persistence.PersistenceContext;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Disjunction;
-import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -23,7 +22,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 public class AgendasImpl implements AgendasQueries {
 
@@ -76,9 +74,13 @@ public class AgendasImpl implements AgendasQueries {
 			}
 			if(filtro.getGrupos() != null && !filtro.getGrupos().isEmpty()){
 				List<Usuario> nusuarios = usuarios.usuariosDoGrupoCujoNome(filtro.getGrupos().get(0), filtro.getNome());
-				Disjunction ou = Restrictions.disjunction();
-				nusuarios.forEach(u -> ou.add(Restrictions.eq("usuario", u)));
-				criteria.add(ou);
+				if(!nusuarios.isEmpty()){
+					Disjunction ou = Restrictions.disjunction();
+					nusuarios.forEach(u -> ou.add(Restrictions.eq("usuario", u)));
+					criteria.add(ou);
+				} else{
+					criteria.add(Restrictions.eq("usuario", null));
+				}
 			}
 			criteria.addOrder(Order.asc("usuario"));
 			criteria.addOrder(Order.asc("horaAgendamento"));
