@@ -103,7 +103,7 @@
 						<td th:text="${usuario.nome}"></td>
 						<td th:text="${usuario.email}"></td>
 						<td>
-							<span th:each="grupo : ${usuario.grupos}" th:text="|${grupo.nome}${grupoStat.last ? '' : ', '}|"></span>
+							<span th:each="grupo : ${usuario.grupo}" th:text="|${grupo.nome}${grupoStat.last ? '' : ', '}|"></span>
 						</td>
 						<td>
 							<th:block th:if="${usuario.ativo}">

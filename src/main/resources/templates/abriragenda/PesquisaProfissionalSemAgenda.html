@@ -8,7 +8,7 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 	
 <head>
-	<title>Pesquisa de usuários</title>
+	<title>Abrir agenda</title>
 </head>
 
 <body>
@@ -17,24 +17,15 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xs-10">
-					<h1>Marcação de horários</h1>
+					<h1>Abrir agenda</h1>
 				</div>
 				
-				<!--
-				<div class="col-xs-2">
-					<div class="aw-page-header-controls">
-						<a class="btn  btn-default" th:href="@{/}">
-							<i class="glyphicon  glyphicon-plus-sign"></i> <span class="hidden-xs  hidden-sm">Abrir Agenda</span>
-						</a>
-					</div>
-				</div>
-				-->
 			</div>
 		</div>
 	</div>
 	
 	<div class="container-fluid">
-		<form method="GET" th:object="${agendaFilter}" th:action="@{/marcacao}">
+		<form method="GET" th:object="${agendaFilter}" th:action="@{/abriragenda}">
 			<div class="row">
 			
 				<div class="form-group  col-sm-2">
@@ -63,6 +54,7 @@
 						
 		</form>
 		
+		
 		<div class="table-responsive  bw-tabela-simples">
         	<table class="table  table-hover">
 	            <thead>
@@ -75,14 +67,14 @@
 					</tr>
 				</thead>
 			
-	            <tbody>
+	            <tbody th:each="usuario : ${pagina.conteudo}">
 
-					<tr th:each="agenda : ${pagina.conteudo}">  
+					<tr th:if="${not #lists.isEmpty(usuario.agendas)}" th:each="agenda : ${usuario.agendas}">  
+					
 						<td th:text="${agenda.dataAgendamentoString}"></td>
 						<td th:text="${agenda.horaAgendamento}"></td>
- 
- 						<td th:text="${agenda.usuario.nome}"></td>
-						<td th:text="${agenda.paciente} != null ? ${agenda.paciente.pessoa.nome} : '' "></td> 
+						<td th:text="${usuario.nome}"></td>
+						<td th:text="${agenda.paciente} != null ? ${agenda.paciente.pessoa.nome} : '' "></td>
 						
 						<td class="text-center" th:if="${agenda.paciente} != null">
 							<a class="btn  btn-link  btn-xs js-tooltip" title="Editar" 
@@ -99,15 +91,34 @@
 								<i class="glyphicon glyphicon-option-horizontal"></i>
 							</a>
 						</td>
+						
+	                </tr>
+	                
+	                <tr th:if="${#lists.isEmpty(usuario.agendas)}">
+						<td>Sem agenda</td>
+						<td>--</td>
+						<td th:text="${usuario.nome}"></td>
+						<td>--</td>
+						<td class="text-center">
+							<a class="btn js-tooltip" title="Abrir agenda">
+								<i class="glyphicon glyphicon glyphicon-calendar"></i>
+							</a>
+						</td>
+	                
 	                </tr>
 	                
 	                <tr th:if="${pagina.vazia}">
 	                	<td colspan="6">Não existe agenda</td>
 	                </tr>
+	                
+	                
 
 	            </tbody>
+	            
+	            
          	</table>
     	 </div>
+    	 
     	 
     	 <iaff:pagination page="${pagina}"/>
 

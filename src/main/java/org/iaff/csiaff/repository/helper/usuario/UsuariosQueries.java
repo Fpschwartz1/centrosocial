@@ -17,7 +17,7 @@ public interface UsuariosQueries {
 	
 	public Page<Usuario> filtrar(UsuarioFilter filtro, Pageable pageable);
 	
-	public Usuario buscarComGrupos(Long codigo);
+	// public Usuario buscarComGrupos(Long codigo);
 	
 	public List<Usuario> usuariosDoGrupoCujoNome(Grupo grupo, String nome);
 }

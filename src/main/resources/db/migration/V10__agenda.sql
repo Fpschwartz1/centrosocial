@@ -8,8 +8,8 @@ CREATE TABLE agenda (
     FOREIGN KEY (codigo_usuarioprofissional) REFERENCES usuario(codigo)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO agenda (data_agendamento, hora_agendamento, codigo_paciente, codigo_usuarioprofissional) VALUES ('2018-04-01', '08:15', 3, 2);
-INSERT INTO agenda (data_agendamento, hora_agendamento, codigo_paciente, codigo_usuarioprofissional) VALUES ('2018-04-01', '08:15', 3, 3);
-INSERT INTO agenda (data_agendamento, hora_agendamento, codigo_paciente, codigo_usuarioprofissional) VALUES ('2018-04-01', '08:00', 4, 3);
-INSERT INTO agenda (data_agendamento, hora_agendamento, codigo_paciente, codigo_usuarioprofissional) VALUES ('2018-04-01', '08:00', NULL, 2);
-INSERT INTO agenda (data_agendamento, hora_agendamento, codigo_paciente, codigo_usuarioprofissional) VALUES ('2018-04-01', '08:00', 4, 4);
+INSERT INTO agenda (data_agendamento, hora_agendamento, codigo_paciente, codigo_usuarioprofissional) VALUES ('2018-05-01', '08:15', 3, 2);
+INSERT INTO agenda (data_agendamento, hora_agendamento, codigo_paciente, codigo_usuarioprofissional) VALUES ('2018-05-01', '08:15', 3, 3);
+INSERT INTO agenda (data_agendamento, hora_agendamento, codigo_paciente, codigo_usuarioprofissional) VALUES ('2018-05-01', '08:00', 4, 3);
+INSERT INTO agenda (data_agendamento, hora_agendamento, codigo_paciente, codigo_usuarioprofissional) VALUES ('2018-05-01', '08:00', NULL, 2);
+INSERT INTO agenda (data_agendamento, hora_agendamento, codigo_paciente, codigo_usuarioprofissional) VALUES ('2018-05-01', '08:00', 4, 4);

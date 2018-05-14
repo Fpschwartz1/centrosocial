@@ -97,7 +97,7 @@ public class UsuariosController {
 	
 	@GetMapping("/{codigo}")
 	public ModelAndView editar(@PathVariable Long codigo) {
-		Usuario usuario = usuarios.buscarComGrupos(codigo);
+		Usuario usuario = usuarios.findOne(codigo);
 		ModelAndView mv = novo(usuario);
 		mv.addObject(usuario);
 		return mv;

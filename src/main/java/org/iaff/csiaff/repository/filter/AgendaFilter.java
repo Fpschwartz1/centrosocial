@@ -1,16 +1,17 @@
 package org.iaff.csiaff.repository.filter;
 
 import java.time.LocalDate;
-import java.util.List;
 
-import org.iaff.csiaff.model.Grupo;;
+import org.iaff.csiaff.model.Grupo;
+import org.iaff.csiaff.model.Usuario;
 
 public class AgendaFilter {
 
 	private Long codigo;
+	private Usuario usuario;
 	private LocalDate dataAgendamento;
 	private String nome;
-	private List<Grupo> grupos;
+	private Grupo grupo;
 
 	public Long getCodigo() {
 		return codigo;
@@ -18,6 +19,14 @@ public class AgendaFilter {
 
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public LocalDate getDataAgendamento() {
@@ -36,12 +45,13 @@ public class AgendaFilter {
 		this.nome = nome;
 	}
 
-	public List<Grupo> getGrupos() {
-		return grupos;
+	public Grupo getGrupo() {
+		return grupo;
 	}
 
-	public void setGrupos(List<Grupo> grupos) {
-		this.grupos = grupos;
+	public void setGrupo(Grupo grupo) {
+		this.grupo = grupo;
 	}
+
 	
 }

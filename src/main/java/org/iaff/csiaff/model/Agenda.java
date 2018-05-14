@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -27,8 +28,8 @@ public class Agenda {
 	@JoinColumn(name = "codigo_paciente")
 	private Paciente paciente;
 	
-	// unidirecional
-	@OneToOne(optional = false)
+	// bidirecional
+	@ManyToOne(optional = true)
 	@JoinColumn(name = "codigo_usuarioprofissional")
 	private Usuario usuario;
 

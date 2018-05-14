@@ -145,7 +145,7 @@ public class ProntuariosController {
 
 		itemProntuario.setDataLancamento(LocalDateTime.now());
 		
-		itemProntuario.setNomeGrupo(itemProntuario.getUsuario().getGrupos().get(0).getNome());
+		itemProntuario.setNomeGrupo(itemProntuario.getUsuario().getGrupo().getNome());
 		
 		itensProntuario.save(itemProntuario);
 		

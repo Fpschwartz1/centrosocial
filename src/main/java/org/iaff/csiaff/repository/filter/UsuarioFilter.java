@@ -33,5 +33,6 @@ public class UsuarioFilter {
 	public void setGrupos(List<Grupo> grupos) {
 		this.grupos = grupos;
 	}
-	
+
+
 }

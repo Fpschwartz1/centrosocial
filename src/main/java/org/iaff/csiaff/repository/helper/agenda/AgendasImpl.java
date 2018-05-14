@@ -11,6 +11,7 @@ import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.iaff.csiaff.model.Agenda;
 import org.iaff.csiaff.model.Usuario;
 import org.iaff.csiaff.repository.Agendas;
@@ -37,6 +38,8 @@ public class AgendasImpl implements AgendasQueries {
 	@Autowired
 	private Usuarios usuarios;
 	
+	// consultas e filtros baseados em Agenda.class
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly = true)
@@ -46,8 +49,8 @@ public class AgendasImpl implements AgendasQueries {
 		paginacaoUtil.preparar(criteria, pageable);
 		adicionarFiltro(filtro, criteria);
 	
-		@SuppressWarnings("unused")
-		List<Agenda> lista = criteria.list();
+		// @SuppressWarnings("unused")
+		// List<Agenda> lista = criteria.list();
 		
 		return new PageImpl<>(criteria.list(), pageable, total(filtro));
 	}
@@ -72,19 +75,66 @@ public class AgendasImpl implements AgendasQueries {
 			if(filtro.getDataAgendamento() != null){
 				criteria.add(Restrictions.eq("dataAgendamento", filtro.getDataAgendamento()));
 			}
-			if(filtro.getGrupos() != null && !filtro.getGrupos().isEmpty()){
-				List<Usuario> nusuarios = usuarios.usuariosDoGrupoCujoNome(filtro.getGrupos().get(0), filtro.getNome());
-				if(!nusuarios.isEmpty()){
-					Disjunction ou = Restrictions.disjunction();
-					nusuarios.forEach(u -> ou.add(Restrictions.eq("usuario", u)));
-					criteria.add(ou);
-				} else{
-					criteria.add(Restrictions.eq("usuario", null));
-				}
+			if(filtro.getGrupo() != null){
+				List<Usuario> nusuarios = usuarios.usuariosDoGrupoCujoNome(filtro.getGrupo(), filtro.getNome());
+				Disjunction ou = Restrictions.disjunction();
+				nusuarios.forEach(u -> ou.add(Restrictions.eq("usuario", u)));
+				criteria.add(ou);
 			}
 			criteria.addOrder(Order.asc("usuario"));
 			criteria.addOrder(Order.asc("horaAgendamento"));
 		}
+	}
+	
+	
+	// consultas e filtros baseados em Usuario.class 
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(readOnly = true)
+	public Page<Agenda> filtrar2(AgendaFilter filtro, Pageable pageable) {
+
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(Usuario.class);
+		criteria.createAlias("agendas", "ag", JoinType.LEFT_OUTER_JOIN); 
+		criteria.createCriteria("grupo").add(Restrictions.eq("anamnese", true));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		
+		paginacaoUtil.preparar(criteria, pageable);
+		adicionarFiltro2(filtro, criteria);
+		
+		@SuppressWarnings("unused")
+		List<Criteria> lista = criteria.list();
+		
+		Long i =  total2(filtro);
+		
+		// return new PageImpl<>(criteria.list(), pageable, total2(filtro));
+		return new PageImpl<>(criteria.list(), pageable, i);
+	}
+
+	private Long total2(AgendaFilter filtro) {
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(Usuario.class);
+		criteria.createAlias("agendas", "ag", JoinType.LEFT_OUTER_JOIN);
+		criteria.createCriteria("grupo").add(Restrictions.eq("anamnese", true));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		
+		adicionarFiltro2(filtro, criteria);
+		criteria.setProjection(Projections.rowCount());
+		return (Long) criteria.uniqueResult();
+	}
+	
+	private void adicionarFiltro2(AgendaFilter filtro, Criteria criteria) {
+		if (filtro != null) {
+			if (filtro.getGrupo() != null) {
+				criteria.add(Restrictions.eq("grupo", filtro.getGrupo()));
+			}
+			/*
+			if(filtro.getDataAgendamento() != null){
+				criteria.add(Restrictions.eq("ag.dataAgendamento", filtro.getDataAgendamento()));
+			}
+			*/
+		}
+		criteria.addOrder(Order.asc("nome"));
+		criteria.addOrder(Order.asc("ag.horaAgendamento"));
 	}
 
 }

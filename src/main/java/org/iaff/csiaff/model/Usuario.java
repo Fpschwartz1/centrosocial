@@ -9,14 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.Size;
-
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -51,17 +48,19 @@ public class Usuario implements Serializable {
 	
 	private int duracaoConsulta;
 
-	@Size(min = 1, message = "Selecione pelo menos um grupo")
-	@ManyToMany
-	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "codigo_usuario")
-				, inverseJoinColumns = @JoinColumn(name = "codigo_grupo"))	
-	private List<Grupo> grupos;
+	@OneToOne
+	@JoinColumn(name = "codigo_grupo")	
+	private Grupo grupo;
 
 	// http://forum.spring.io/forum/spring-projects/data/72442-jpa-optional-onetoone-not-optional
 	// http://webdev.jhuep.com/~jcs/ejava-javaee/coursedocs/content/html/jpa-relationex-one2one.html
 	@OneToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_pessoa")
 	private Pessoa pessoa;
+	
+	// bidirecional
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+	private List<Agenda> agendas;
 	
 	@PreUpdate
 	private void preUpdate() {
@@ -116,12 +115,12 @@ public class Usuario implements Serializable {
 		this.duracaoConsulta = duracaoConsulta;
 	}
 
-	public List<Grupo> getGrupos() {
-		return grupos;
+	public Grupo getGrupo() {
+		return grupo;
 	}
 
-	public void setGrupos(List<Grupo> grupos) {
-		this.grupos = grupos;
+	public void setGrupo(Grupo grupo) {
+		this.grupo = grupo;
 	}
 
 	public String getConfirmacaoSenha() {
@@ -144,6 +143,15 @@ public class Usuario implements Serializable {
 		this.pessoa = pessoa;
 	}	
 	
+
+	public List<Agenda> getAgendas() {
+		return agendas;
+	}
+
+	public void setAgendas(List<Agenda> agendas) {
+		this.agendas = agendas;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

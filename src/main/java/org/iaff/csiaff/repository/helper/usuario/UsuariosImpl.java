@@ -11,15 +11,11 @@ import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.Subqueries;
-import org.hibernate.sql.JoinType;
 import org.iaff.csiaff.model.Grupo;
 import org.iaff.csiaff.model.Usuario;
-import org.iaff.csiaff.model.UsuarioGrupo;
 import org.iaff.csiaff.repository.filter.UsuarioFilter;
 import org.iaff.csiaff.repository.paginacao.PaginacaoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +45,7 @@ public class UsuariosImpl implements UsuariosQueries {
 	@Override
 	public List<String> permissoes(Usuario usuario) {
 		return manager.createQuery(
-				"select distinct p.nome from Usuario u inner join u.grupos g inner join g.permissoes p where u = :usuario", String.class)
+				"select distinct p.nome from Usuario u inner join u.grupo g inner join g.permissoes p where u = :usuario", String.class)
 				.setParameter("usuario", usuario)
 				.getResultList();
 	}
@@ -83,10 +79,11 @@ public class UsuariosImpl implements UsuariosQueries {
 		adicionarFiltro(filtro, criteria);
 		
 		List<Usuario> filtrados = criteria.list();
-		filtrados.forEach(u -> Hibernate.initialize(u.getGrupos()));
+		filtrados.forEach(u -> Hibernate.initialize(u.getGrupo()));
 		return new PageImpl<>(filtrados, pageable, total(filtro));
 	}
 	
+	/*
 	@Transactional(readOnly = true)
 	@Override
 	public Usuario buscarComGrupos(Long codigo) {
@@ -96,6 +93,7 @@ public class UsuariosImpl implements UsuariosQueries {
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		return (Usuario) criteria.uniqueResult();
 	}
+	*/
 	
 	private Long total(UsuarioFilter filtro) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Usuario.class);
@@ -116,13 +114,8 @@ public class UsuariosImpl implements UsuariosQueries {
 			
 			if (filtro.getGrupos() != null && !filtro.getGrupos().isEmpty()) {
 				List<Criterion> subqueries = new ArrayList<>();
-				for (Long codigoGrupo : filtro.getGrupos().stream().mapToLong(Grupo::getCodigo).toArray()) {
-					DetachedCriteria dc = DetachedCriteria.forClass(UsuarioGrupo.class);
-					dc.add(Restrictions.eq("id.grupo.codigo", codigoGrupo));
-					dc.setProjection(Projections.property("id.usuario"));
-					
-					subqueries.add(Subqueries.propertyIn("codigo", dc));
-				}
+				
+				filtro.getGrupos().forEach(g -> subqueries.add(Restrictions.eq("grupo", g)));
 				
 				Criterion[] criterions = new Criterion[subqueries.size()];
 				// aplica operador OU para os grupos

@@ -64,7 +64,7 @@
 					    <input  id="inputHiddenTipoItemProntuarioSelecionado" th:value="*{tipoitemprontuario} != null ? *{tipoitemprontuario.codigo}"/>
 						<select id="tipoItemProntuario" class="form-control"  
 							data:url="@{/prontuarios/tipos}" 
-							data:codgrupo="*{usuario.grupos[0].codigo}"
+							data:codgrupo="*{usuario.grupo.codigo}"
 							th:field="*{tipoitemprontuario}">
 						</select>
 						

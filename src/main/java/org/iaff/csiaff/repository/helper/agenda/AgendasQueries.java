@@ -9,4 +9,6 @@ public interface AgendasQueries {
 
 	public Page<Agenda> filtrar(AgendaFilter filtro, Pageable pageable);
 	
+	public Page<Agenda> filtrar2(AgendaFilter filtro, Pageable pageable);
+	
 }
