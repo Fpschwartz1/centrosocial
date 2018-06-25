@@ -11,7 +11,6 @@ import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.sql.JoinType;
 import org.iaff.csiaff.model.Agenda;
 import org.iaff.csiaff.model.Usuario;
 import org.iaff.csiaff.repository.Agendas;
@@ -88,53 +87,18 @@ public class AgendasImpl implements AgendasQueries {
 	
 	
 	// consultas e filtros baseados em Usuario.class 
-	
-	@SuppressWarnings("unchecked")
+
 	@Override
 	@Transactional(readOnly = true)
-	public Page<Agenda> filtrar2(AgendaFilter filtro, Pageable pageable) {
+	public List<Usuario> filtrar2(AgendaFilter filtro) {
+		
+		return manager.createQuery(
+				"Select u from Usuario u inner join u.grupo g where g.anamnese = 1 and u.codigo NOT IN "
+				+ "(select a.usuario.codigo from Agenda a where a.dataAgendamento = :dataAgendamento)", Usuario.class)
+				.setParameter("dataAgendamento", filtro.getDataAgendamento())
+				.getResultList();
+		
 
-		Criteria criteria = manager.unwrap(Session.class).createCriteria(Usuario.class);
-		criteria.createAlias("agendas", "ag", JoinType.LEFT_OUTER_JOIN); 
-		criteria.createCriteria("grupo").add(Restrictions.eq("anamnese", true));
-		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		
-		paginacaoUtil.preparar(criteria, pageable);
-		adicionarFiltro2(filtro, criteria);
-		
-		@SuppressWarnings("unused")
-		List<Criteria> lista = criteria.list();
-		
-		Long i =  total2(filtro);
-		
-		// return new PageImpl<>(criteria.list(), pageable, total2(filtro));
-		return new PageImpl<>(criteria.list(), pageable, i);
-	}
-
-	private Long total2(AgendaFilter filtro) {
-		Criteria criteria = manager.unwrap(Session.class).createCriteria(Usuario.class);
-		criteria.createAlias("agendas", "ag", JoinType.LEFT_OUTER_JOIN);
-		criteria.createCriteria("grupo").add(Restrictions.eq("anamnese", true));
-		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		
-		adicionarFiltro2(filtro, criteria);
-		criteria.setProjection(Projections.rowCount());
-		return (Long) criteria.uniqueResult();
 	}
 	
-	private void adicionarFiltro2(AgendaFilter filtro, Criteria criteria) {
-		if (filtro != null) {
-			if (filtro.getGrupo() != null) {
-				criteria.add(Restrictions.eq("grupo", filtro.getGrupo()));
-			}
-			/*
-			if(filtro.getDataAgendamento() != null){
-				criteria.add(Restrictions.eq("ag.dataAgendamento", filtro.getDataAgendamento()));
-			}
-			*/
-		}
-		criteria.addOrder(Order.asc("nome"));
-		criteria.addOrder(Order.asc("ag.horaAgendamento"));
-	}
-
 }

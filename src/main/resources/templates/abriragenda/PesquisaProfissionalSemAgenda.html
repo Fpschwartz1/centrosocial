@@ -8,7 +8,7 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 	
 <head>
-	<title>Abrir agenda</title>
+	<title>Abertura de agenda</title>
 </head>
 
 <body>
@@ -17,7 +17,7 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xs-10">
-					<h1>Abrir agenda</h1>
+					<h1>Abertura de agenda</h1>
 				</div>
 				
 			</div>
@@ -59,73 +59,41 @@
         	<table class="table  table-hover">
 	            <thead>
 	            	<tr>
-		            	<th class="table-pessoas-col-nome">Data agendamento</th>
-		            	<th class="table-pessoas-col-nome">Hora</th>
 		                <th class="table-pessoas-col-nome">Profissional</th>
-		                <th class="table-pessoas-col-nome">Paciente</th>
-		                <th class="table-col-acoes">Operações</th>
+		                <th class="table-col-acoes">Abrir</th>
 					</tr>
 				</thead>
 			
-	            <tbody th:each="usuario : ${pagina.conteudo}">
+	            <tbody th:if="${!usuarios.empty}" th:each="usuario : ${usuarios}">
 
-					<tr th:if="${not #lists.isEmpty(usuario.agendas)}" th:each="agenda : ${usuario.agendas}">  
-					
-						<td th:text="${agenda.dataAgendamentoString}"></td>
-						<td th:text="${agenda.horaAgendamento}"></td>
+	                <tr>
 						<td th:text="${usuario.nome}"></td>
-						<td th:text="${agenda.paciente} != null ? ${agenda.paciente.pessoa.nome} : '' "></td>
-						
-						<td class="text-center" th:if="${agenda.paciente} != null">
-							<a class="btn  btn-link  btn-xs js-tooltip" title="Editar" 
-							   th:href="@{/prontuarios/{codigo}(codigo=${agenda.paciente.codigo},nome=${agenda.paciente.pessoa.nome})}"> 
-								<i class="glyphicon glyphicon-pencil"></i>
-							</a>
-							<a class="btn  btn-link  btn-xs  js-tooltip  js-exclusao-btn" title="Excluir" href="@{/}"
-									data:url="@{/}">
-								<i class="glyphicon glyphicon-remove"></i>
-							</a>							
-						</td>
-						<td class="text-center" th:if="${agenda.paciente} == null">
-							<a class="btn js-tooltip" title="Livre">
-								<i class="glyphicon glyphicon-option-horizontal"></i>
-							</a>
-						</td>
-						
-	                </tr>
-	                
-	                <tr th:if="${#lists.isEmpty(usuario.agendas)}">
-						<td>Sem agenda</td>
-						<td>--</td>
-						<td th:text="${usuario.nome}"></td>
-						<td>--</td>
-						<td class="text-center">
+						<td>
 							<a class="btn js-tooltip" title="Abrir agenda">
 								<i class="glyphicon glyphicon glyphicon-calendar"></i>
 							</a>
 						</td>
 	                
 	                </tr>
+                </tbody>
 	                
-	                <tr th:if="${pagina.vazia}">
-	                	<td colspan="6">Não existe agenda</td>
+                <tbody th:if="${usuarios.empty}">
+	                <tr>
+	                	<td colspan="6">Não existe agenda a ser aberta</td>
 	                </tr>
-	                
-	                
-
 	            </tbody>
 	            
 	            
          	</table>
     	 </div>
-    	 
-    	 
-    	 <iaff:pagination page="${pagina}"/>
 
 	</div>
 </section>
+
+<!-- 
 <th:block layout:fragment="javascript-extra">
 	<script th:src="@{/javascripts/multiselecao.js}"></script>
 </th:block>
+-->
 </body>
 </html>

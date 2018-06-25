@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.iaff.csiaff.controller.page.PageWrapper;
-import org.iaff.csiaff.model.Agenda;
 import org.iaff.csiaff.repository.Agendas;
 import org.iaff.csiaff.repository.Grupos;
 import org.iaff.csiaff.repository.filter.AgendaFilter;
@@ -29,7 +27,7 @@ public class AberturaAgendaController {
 	
 	@GetMapping
 	public ModelAndView pesquisar(AgendaFilter agendaFilter, 
-			@PageableDefault(size = 10) Pageable pageable, HttpServletRequest httpServletRequest) {
+			@PageableDefault(size = 2) Pageable pageable, HttpServletRequest httpServletRequest) {
 		ModelAndView mv = new ModelAndView("/abriragenda/PesquisaProfissionalSemAgenda");
 		mv.addObject("grupos", grupos.findByRegistroprofissionalNotNull());
 		
@@ -37,9 +35,7 @@ public class AberturaAgendaController {
 			agendaFilter.setDataAgendamento(LocalDateTime.now().toLocalDate());	
 		}
 		
-		PageWrapper<Agenda> paginaWrapper = new PageWrapper<>(agendas.filtrar2(agendaFilter, pageable)
-				, httpServletRequest);
-		mv.addObject("pagina", paginaWrapper);
+		mv.addObject("usuarios", agendas.filtrar2(agendaFilter));
 		return mv;
 	}
 	
