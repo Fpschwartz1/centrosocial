@@ -26,7 +26,7 @@ public class AgendasController {
 	
 	@GetMapping("/{codigo}")
 	public ModelAndView pesquisar(@PathVariable Long codigo, 
-			@PageableDefault(size = 3) Pageable pageable, HttpServletRequest httpServletRequest) {
+			@PageableDefault(size = 8) Pageable pageable, HttpServletRequest httpServletRequest) {
 		ModelAndView mv = new ModelAndView("/agenda/PesquisaAgendas");
 		
 		AgendaFilter agendaFilter = new AgendaFilter();

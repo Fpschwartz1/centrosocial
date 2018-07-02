@@ -29,7 +29,7 @@ public class MarcacaoController {
 
 	@GetMapping
 	public ModelAndView pesquisar(AgendaFilter agendaFilter
-			, @PageableDefault(size = 10) Pageable pageable, HttpServletRequest httpServletRequest) {
+			, @PageableDefault(size = 8) Pageable pageable, HttpServletRequest httpServletRequest) {
 		ModelAndView mv = new ModelAndView("/marcacao/PesquisaHorarios");
 		mv.addObject("grupos", grupos.findByRegistroprofissionalNotNull());
 		
