@@ -76,9 +76,14 @@ public class AgendasImpl implements AgendasQueries {
 			}
 			if(filtro.getGrupo() != null){
 				List<Usuario> nusuarios = usuarios.usuariosDoGrupoCujoNome(filtro.getGrupo(), filtro.getNome());
-				Disjunction ou = Restrictions.disjunction();
-				nusuarios.forEach(u -> ou.add(Restrictions.eq("usuario", u)));
-				criteria.add(ou);
+				if(nusuarios.size()>0){
+					Disjunction ou = Restrictions.disjunction();
+					nusuarios.forEach(u -> ou.add(Restrictions.eq("usuario", u)));
+					criteria.add(ou);
+				} else{
+					criteria.add(Restrictions.eq("codigo", -1L));
+					
+				}
 			}
 			criteria.addOrder(Order.asc("usuario"));
 			criteria.addOrder(Order.asc("horaAgendamento"));
