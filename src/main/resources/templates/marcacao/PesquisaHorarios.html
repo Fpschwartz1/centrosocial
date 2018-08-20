@@ -95,9 +95,13 @@
 							</a>							
 						</td>
 						<td class="text-center" th:if="${agenda.paciente} == null">
-							<a class="btn js-tooltip" title="Livre">
-								<i class="glyphicon glyphicon-option-horizontal"></i>
-							</a>
+							
+							<button class="btn  btn-default  js-tooltip" type="button" title="Pesquisa paciente"
+					        		data-toggle="modal" data-target="#pesquisaRapidaPacientes" 
+					        		th:onclick="|setCodigoAgenda('${agenda.codigo}')|">
+					        	<i class="glyphicon  glyphicon-search"></i>
+					        </button> 
+							 
 						</td>
 	                </tr>
 	                
@@ -112,9 +116,21 @@
     	 <iaff:pagination page="${pagina}"/>
 
 	</div>
+	
+	
+	<th:block th:replace="paciente/PesquisaRapidaPacientes :: pesquisaRapidaPacientes"></th:block>
+	
 </section>
 <th:block layout:fragment="javascript-extra">
 	<script th:src="@{/javascripts/multiselecao.js}"></script>
+	<script th:src="@{/javascripts/vendors/handlebars.min.js}"></script>
+	<script th:src="@{/javascripts/paciente.pesquisa-rapida.js}"></script>
+	<!-- Passa o código da agenda como parâmetro para a caixa modal, atribuindo ao campo hidden coodigoAgendaModal -->
+	<script>
+		function setCodigoAgenda(codigoAgenda) {
+	    	document.getElementById('codigoAgendaModal').value = codigoAgenda;
+		}
+	</script>
 </th:block>
 </body>
 </html>

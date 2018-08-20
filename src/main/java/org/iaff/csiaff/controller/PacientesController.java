@@ -1,5 +1,7 @@
 package org.iaff.csiaff.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -13,6 +15,7 @@ import org.iaff.csiaff.service.exception.PacientePessoaJaCadastradaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -87,7 +90,17 @@ public class PacientesController {
 		return ResponseEntity.ok().build();
 	}
 	
-	
+	// pesquisa rapida
+	@RequestMapping(consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody List<Paciente> pesquisar(String nome) {
+		// return pessoas.findByNomeStartingWithIgnoreCase(nome);
+		PacienteFilter filtro = new PacienteFilter();
+		filtro.setNome(nome);
+		
+		//List<Paciente> pc = pacientes.filtrarPesquisaRapida(filtro);
+		
+		return pacientes.filtrarPesquisaRapida(filtro);
+	}
 	
 	
 }

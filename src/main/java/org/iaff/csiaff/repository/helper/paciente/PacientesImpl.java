@@ -44,8 +44,8 @@ public class PacientesImpl implements PacientesQueries {
 		adicionarFiltro(filtro, criteria);
 				
 	
-		@SuppressWarnings("unused")
-		List<Paciente> lista = criteria.list();
+		// @SuppressWarnings("unused")
+		// List<Paciente> lista = criteria.list();
 		
 		return new PageImpl<>(criteria.list(), pageable, total(filtro));
 	}
@@ -64,9 +64,25 @@ public class PacientesImpl implements PacientesQueries {
 				for(Long codigoPessoa : pessoas.findByNomeStartingWithIgnoreCase(filtro.getNome()).stream().mapToLong(Pessoa::getCodigo).toArray()){
 					ou.add(Restrictions.eq("pessoa.codigo", codigoPessoa));
 				}
-				criteria.add(ou);
+				if(ou.conditions().iterator().hasNext()){
+					criteria.add(ou);	
+				} else{ // caso não tenha encontrado 
+					criteria.add(Restrictions.eq("pessoa.codigo", -1L));
+				}
+				
 			}
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public List<Paciente> filtrarPesquisaRapida(PacienteFilter filtro) {
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(Paciente.class);
+		
+		adicionarFiltro(filtro, criteria);
+	
+		return criteria.list();
+	}
+	
 
 }

@@ -10,5 +10,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface Agendas extends JpaRepository<Agenda, Long>, AgendasQueries {
 	
 	public List<Agenda> findByUsuario(Usuario usuario);
-
 }
