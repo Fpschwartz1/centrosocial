@@ -15,6 +15,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "paciente")
 @DynamicUpdate
@@ -37,6 +39,7 @@ public class Paciente implements Serializable {
 	private String foneEmergencia;
 	
 	// bidirecional
+	@JsonIgnore
 	@OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ItemProntuario> itensprontuario;
 	
