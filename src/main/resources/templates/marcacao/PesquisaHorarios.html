@@ -85,15 +85,13 @@
 						<td th:text="${agenda.paciente} != null ? ${agenda.paciente.pessoa.nome} : '' "></td> 
 						
 						<td class="text-center" th:if="${agenda.paciente} != null">
-							<a class="btn  btn-link  btn-xs js-tooltip" title="Editar" 
-							   th:href="@{/prontuarios/{codigo}(codigo=${agenda.paciente.codigo},nome=${agenda.paciente.pessoa.nome})}"> 
-								<i class="glyphicon glyphicon-pencil"></i>
-							</a>
-							<a class="btn  btn-link  btn-xs  js-tooltip  js-exclusao-btn" title="Excluir" href="@{/}"
+
+							<a class="btn  btn-link  btn-xs  js-tooltip  js-exclusao-btn" title="Desmarcar" href="@{/}"
 									data:url="@{/}">
 								<i class="glyphicon glyphicon-remove"></i>
 							</a>							
 						</td>
+						
 						<td class="text-center" th:if="${agenda.paciente} == null">
 							
 							<button class="btn  btn-default  js-tooltip" type="button" title="Pesquisa paciente"

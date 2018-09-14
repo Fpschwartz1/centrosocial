@@ -97,7 +97,7 @@ public class PacientesController {
 		PacienteFilter filtro = new PacienteFilter();
 		filtro.setNome(nome);
 		
-		//List<Paciente> pc = pacientes.filtrarPesquisaRapida(filtro);
+		// List<Paciente> pc = pacientes.filtrarPesquisaRapida(filtro);
 		
 		return pacientes.filtrarPesquisaRapida(filtro);
 	}

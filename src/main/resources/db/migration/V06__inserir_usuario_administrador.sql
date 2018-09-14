@@ -1,4 +1,5 @@
-INSERT INTO usuario (nome, email, senha, ativo, duracao_consulta, codigo_grupo, codigo_pessoa) VALUES ('Admin', 'admin@iaff.org', '$2a$10$g.wT4R0Wnfel1jc/k84OXuwZE02BlACSLfWy6TycGPvvEKvIm86SG', 1, 15, 1, 1);
+INSERT INTO usuario (nome, email, senha, ativo, duracao_consulta, codigo_grupo, codigo_pessoa) VALUES ('Admin', 'admin@iaff.org', '$2a$10$g.wT4R0Wnfel1jc/k84OXuwZE02BlACSLfWy6TycGPvvEKvIm86SG', 1, 0, 1, 1);
 INSERT INTO usuario (nome, email, senha, ativo, duracao_consulta, codigo_grupo, codigo_pessoa) VALUES ('Dra. Flávia - Fonoaudióloga', 'flavia.fono@iaff.org', '$2a$10$Oxaob2ozb0GJmcnDsKtXWuaI3qicpTchAeAQx7DqwpoWR/VtGC/EW', 1, 15, 8, 2);
 INSERT INTO usuario (nome, email, senha, ativo, duracao_consulta, codigo_grupo, codigo_pessoa) VALUES ('Dr. Fabiano - Clínico Geral', 'fabiano.clinicogeral@iaff.org', '$2a$10$EmazBRv2uWTM8S.7WIahduJgGJ1iNrEDysedCfk3UBo4x8yVF0Klq', 1, 15, 4, 1);
 INSERT INTO usuario (nome, email, senha, ativo, duracao_consulta, codigo_grupo, codigo_pessoa) VALUES ('Dra. Cesarina - Fonoaudióloga', 'cesarina.fono@iaff.org', '$2a$10$Oxaob2ozb0GJmcnDsKtXWuaI3qicpTchAeAQx7DqwpoWR/VtGC/EW', 1, 15, 8, 5);
+INSERT INTO usuario (nome, email, senha, ativo, duracao_consulta, codigo_grupo, codigo_pessoa) VALUES ('Aurélia - Recepcionista', 'aurelia.recepcao@iaff.org', '$2a$10$z5OUngY0rEWbWyaHFWhOU.MoFhmRXEnftNmc0XDNOmgX4FXyCU5OC', 1, 0, 15, 6);

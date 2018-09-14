@@ -38,8 +38,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.antMatchers("/cidades/nova").hasRole("CADASTRAR_CIDADE")
-				.antMatchers("/usuarios/**").hasRole("CADASTRAR_USUARIO")
+				.antMatchers("/cidades/**").hasRole("ADMINISTRADOR")
+				.antMatchers("/usuarios/**").hasRole("ADMINISTRADOR")
+				.antMatchers("/pessoas/**").hasRole("ADMINISTRADOR")
+				.antMatchers("/pacientes/**").hasAnyRole("ADMINISTRADOR", "RECEPCIONISTA")
+				.antMatchers("/marcacao/**").hasAnyRole("ADMINISTRADOR","RECEPCIONISTA")
+				.antMatchers("/abriragenda/**").hasAnyRole("ADMINISTRADOR","RECEPCIONISTA")
+				.antMatchers("/agendas/**").hasAnyRole("PROFISSIONAL","ADMINISTRADOR","RECEPCIONISTA")
 				.anyRequest().authenticated()
 				.and()
 			.formLogin()

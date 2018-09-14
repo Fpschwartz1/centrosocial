@@ -82,8 +82,12 @@ Iaff.TabelaPacientePesquisaRapida = (function() {
 		
 		var PacienteSelecionado = $(evento.currentTarget);
 		
+		// identificação do contextpath (csiaff) para a pesquisa de pacientes
+		var url2 = this.modalPaciente.find('form').attr('action');
+		var pos = url2.lastIndexOf("/");
+		
 		$.ajax({
-			url: '/agendas',
+			url: url2.substr(0, pos) + '/agendas',
 			method: 'GET',
 			contentType: 'application/json',
 			data: {

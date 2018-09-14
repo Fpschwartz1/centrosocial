@@ -21,3 +21,4 @@ O presente projeto tem por objetivo o desenvolvimento de sistema para dar suport
   * com o e-mail **admin@iaff.org** e senha **admin** para perfil de administrador
   * com o e-mail **flavia.fono@iaff.org** e senha **fono** para simular a especialidade Fonoaudiologia
   * com o e-mail **fabiano.clinicogeral@iaff.org** e senha **cgeral** para simular a especialidade Clínica Geral
+  * com o e-mail **aurelia.recepcao@iaff.org** e senha **recepcao** para simular a especialidade Recepcionista
