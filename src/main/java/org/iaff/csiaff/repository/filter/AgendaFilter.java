@@ -40,6 +40,12 @@ public class AgendaFilter {
 	public String getNome() {
 		return nome;
 	}
+	
+	public String getDataAgendamentoString () {
+		return ""  + String.format("%02d", this.dataAgendamento.getDayOfMonth()) +
+		       "/" + String.format("%02d", this.dataAgendamento.getMonthValue()) +
+		       "/" + String.format("%02d", this.dataAgendamento.getYear());
+	}
 
 	public void setNome(String nome) {
 		this.nome = nome;

@@ -42,6 +42,13 @@ public class AberturaAgendaController {
 			agendaFilter.setDataAgendamento(LocalDateTime.now().toLocalDate());	
 		}
 		
+		// Ajusta o título do campo profissional com dados da pesquisa 
+		if(agendaFilter.getGrupo() != null){
+			mv.addObject("tituloPesquisa", "Profissional - ".concat(grupos.getOne(agendaFilter.getGrupo().getCodigo()).getNome()).concat(" - ").concat(agendaFilter.getDataAgendamentoString()));	
+		} else {
+			mv.addObject("tituloPesquisa", "Profissional - ".concat(agendaFilter.getDataAgendamentoString()) );
+		}
+		
 		mv.addObject("usuarios", agendas.filtrar2(agendaFilter));
 		return mv;
 	}

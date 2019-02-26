@@ -12,9 +12,12 @@ import org.iaff.csiaff.repository.filter.AgendaFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -41,6 +44,16 @@ public class MarcacaoController {
 				, httpServletRequest);
 		mv.addObject("pagina", paginaWrapper);
 		return mv;
+	}
+	
+	@GetMapping("/{codigo}")
+	@ResponseStatus(HttpStatus.OK)
+	public void desmarcar(@PathVariable Long codigo) {
+		
+		Agenda agenda = agendas.findOne(codigo);
+		agenda.setPaciente(null);
+		
+		agendas.save(agenda);
 	}
 
 	

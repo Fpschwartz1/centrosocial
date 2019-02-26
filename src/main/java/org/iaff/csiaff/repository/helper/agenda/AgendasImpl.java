@@ -96,13 +96,21 @@ public class AgendasImpl implements AgendasQueries {
 	@Override
 	@Transactional(readOnly = true)
 	public List<Usuario> filtrar2(AgendaFilter filtro) {
-		
-		return manager.createQuery(
-				"Select u from Usuario u inner join u.grupo g where g.anamnese = 1 and u.codigo NOT IN "
-				+ "(select a.usuario.codigo from Agenda a where a.dataAgendamento = :dataAgendamento)", Usuario.class)
-				.setParameter("dataAgendamento", filtro.getDataAgendamento())
-				.getResultList();
-		
+
+		if(filtro.getGrupo() != null){
+			return manager.createQuery(
+					"Select u from Usuario u inner join u.grupo g where g.anamnese = 1 and u.grupo = :grupo and u.codigo NOT IN "
+					+ "(select a.usuario.codigo from Agenda a where a.dataAgendamento = :dataAgendamento)", Usuario.class)
+					.setParameter("dataAgendamento", filtro.getDataAgendamento())
+					.setParameter("grupo", filtro.getGrupo())
+					.getResultList();
+		} else {
+			return manager.createQuery(
+					"Select u from Usuario u inner join u.grupo g where g.anamnese = 1 and u.codigo NOT IN "
+					+ "(select a.usuario.codigo from Agenda a where a.dataAgendamento = :dataAgendamento)", Usuario.class)
+					.setParameter("dataAgendamento", filtro.getDataAgendamento())
+					.getResultList();
+		}
 
 	}
 	

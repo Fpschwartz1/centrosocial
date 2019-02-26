@@ -43,10 +43,12 @@
 					</div>
 				</div>
 			
+				<!-- 
 				<div class="form-group  col-sm-5">
 					<label class="control-label" for="nome">Profissional</label>
 					<input type="text" class="form-control" id="nome" th:field="*{nome}"/>
 				</div>
+				 -->
 	
 			</div>
 			
@@ -59,9 +61,10 @@
         	<table class="table  table-hover">
 	            <thead>
 	            	<tr>
-		                <th class="table-pessoas-col-nome">Profissional</th>
+		                <th class="table-pessoas-col-nome" th:text="${tituloPesquisa}">Profissional</th>
 		                <th class="table-col-acoes">Abrir</th>
 					</tr>
+					
 				</thead>
 			
 	            <tbody th:if="${!usuarios.empty}" th:each="usuario : ${usuarios}">
