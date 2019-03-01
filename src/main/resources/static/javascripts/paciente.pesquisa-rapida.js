@@ -86,8 +86,9 @@ Iaff.TabelaPacientePesquisaRapida = (function() {
 		var url2 = this.modalPaciente.find('form').attr('action');
 		var pos = url2.lastIndexOf("/");
 		
+		// envia solicitacao ao MarcacaoController
 		$.ajax({
-			url: url2.substr(0, pos) + '/agendas',
+			url: url2.substr(0, pos) + '/marcacao',
 			method: 'GET',
 			contentType: 'application/json',
 			data: {

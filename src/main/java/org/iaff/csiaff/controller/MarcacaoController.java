@@ -8,15 +8,19 @@ import org.iaff.csiaff.controller.page.PageWrapper;
 import org.iaff.csiaff.model.Agenda;
 import org.iaff.csiaff.repository.Agendas;
 import org.iaff.csiaff.repository.Grupos;
+import org.iaff.csiaff.repository.Pacientes;
 import org.iaff.csiaff.repository.filter.AgendaFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,6 +33,9 @@ public class MarcacaoController {
 	
 	@Autowired
 	private Grupos grupos;
+	
+	@Autowired
+	private Pacientes pacientes;
 
 	@GetMapping
 	public ModelAndView pesquisar(AgendaFilter agendaFilter
@@ -46,6 +53,20 @@ public class MarcacaoController {
 		return mv;
 	}
 	
+	// marcação de consulta
+	@RequestMapping(consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseEntity<?> marcarConsulta(Long codigoAgenda, Long codigoPaciente) {
+
+		Agenda agenda = agendas.findOne(codigoAgenda);
+		agenda.setPaciente(pacientes.findOne(codigoPaciente));
+
+		agendas.save(agenda);
+		
+		return ResponseEntity.ok().build();
+	}
+	
+	
+	// desmarcar agenda
 	@GetMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.OK)
 	public void desmarcar(@PathVariable Long codigo) {

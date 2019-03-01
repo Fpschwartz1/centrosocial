@@ -86,17 +86,18 @@
 						
 						<td class="text-center" th:if="${agenda.paciente} != null">
 
+							<!--
 							<button class="btn  btn-default js-desmarcar-btn js-tooltip" type="button" title="Desmarcar"
 					        		data:url="@{/marcacao/{codigo}(codigo=${agenda.codigo})}">
 					        	<i class="glyphicon glyphicon-remove"></i>
-					        </button> 
+					        </button>
+					        --> 
 
-							<!--
-							<a class="btn  btn-link  btn-xs  js-tooltip" title="Desmarcar" 
-									th:href="@{/marcacao/{codigo}(codigo=${agenda.codigo})}">
+							<a class="btn  btn-link  btn-xs  js-desmarcar-btn  js-tooltip" title="Desmarcar" 
+									data:url="@{/marcacao/{codigo}(codigo=${agenda.codigo})}">
 								<i class="glyphicon glyphicon-remove"></i>
 							</a>
-							-->
+							
 														
 						</td>
 						

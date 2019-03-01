@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/pacientes/**").hasAnyRole("ADMINISTRADOR", "RECEPCIONISTA")
 				.antMatchers("/marcacao/**").hasAnyRole("ADMINISTRADOR","RECEPCIONISTA")
 				.antMatchers("/abriragenda/**").hasAnyRole("ADMINISTRADOR","RECEPCIONISTA")
-				.antMatchers("/agendas/**").hasAnyRole("PROFISSIONAL","ADMINISTRADOR","RECEPCIONISTA")
+				.antMatchers("/agendas/**").hasAnyRole("PROFISSIONAL")
 				.anyRequest().authenticated()
 				.and()
 			.formLogin()
