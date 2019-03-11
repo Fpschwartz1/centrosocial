@@ -3,6 +3,8 @@ package org.iaff.csiaff.model;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,6 +34,9 @@ public class Agenda {
 	@ManyToOne(optional = true)
 	@JoinColumn(name = "codigo_usuarioprofissional")
 	private Usuario usuario;
+	
+	@Enumerated(EnumType.ORDINAL)
+	private SituacaoAtendimento situacaoAtendimento;
 
 	public Long getCodigo() {
 		return codigo;
@@ -71,6 +76,14 @@ public class Agenda {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public SituacaoAtendimento getSituacaoAtendimento() {
+		return situacaoAtendimento;
+	}
+
+	public void setSituacaoAtendimento(SituacaoAtendimento situacaoAtendimento) {
+		this.situacaoAtendimento = situacaoAtendimento;
 	}
 
 	public String getDataAgendamentoString () {

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.iaff.csiaff.controller.page.PageWrapper;
 import org.iaff.csiaff.model.Agenda;
+import org.iaff.csiaff.model.SituacaoAtendimento;
 import org.iaff.csiaff.repository.Agendas;
 import org.iaff.csiaff.repository.Grupos;
 import org.iaff.csiaff.repository.Pacientes;
@@ -42,6 +43,7 @@ public class MarcacaoController {
 			, @PageableDefault(size = 8) Pageable pageable, HttpServletRequest httpServletRequest) {
 		ModelAndView mv = new ModelAndView("/marcacao/PesquisaHorarios");
 		mv.addObject("grupos", grupos.findByRegistroprofissionalNotNull());
+		mv.addObject("todasSituacoes", SituacaoAtendimento.values());
 		
 		if(agendaFilter.getDataAgendamento() == null){
 			agendaFilter.setDataAgendamento(LocalDateTime.now().toLocalDate());	
@@ -59,7 +61,10 @@ public class MarcacaoController {
 
 		Agenda agenda = agendas.findOne(codigoAgenda);
 		agenda.setPaciente(pacientes.findOne(codigoPaciente));
+		agenda.setSituacaoAtendimento(SituacaoAtendimento.AGE); // Agendado
 
+		// System.out.println(SituacaoAtendimento.AGE.getDescricao() + SituacaoAtendimento.AGE);
+		
 		agendas.save(agenda);
 		
 		return ResponseEntity.ok().build();
@@ -73,6 +78,7 @@ public class MarcacaoController {
 		
 		Agenda agenda = agendas.findOne(codigo);
 		agenda.setPaciente(null);
+		agenda.setSituacaoAtendimento(null);
 		
 		agendas.save(agenda);
 	}

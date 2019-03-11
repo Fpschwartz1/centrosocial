@@ -71,6 +71,7 @@
 		            	<th class="table-pessoas-col-nome">Hora</th>
 		                <th class="table-pessoas-col-nome">Profissional</th>
 		                <th class="table-pessoas-col-nome">Paciente</th>
+		                <th class="table-pessoas-col-nome">Situação</th>
 		                <th class="table-col-acoes">Operações</th>
 					</tr>
 				</thead>
@@ -83,6 +84,21 @@
  
  						<td th:text="${agenda.usuario.nome}"></td>
 						<td th:text="${agenda.paciente} != null ? ${agenda.paciente.pessoa.nome} : '' "></td> 
+						
+						<td class="text-left" th:if="${agenda.situacaoAtendimento} != null">
+							<!--
+							<span class="label  label-info" th:text="${agenda.situacaoAtendimento} != null ? ${todasSituacoes[agenda.situacaoAtendimento].descricao}"></span>
+							  
+							<span class="label  label-info" th:if="${agenda.situacaoAtendimento.ordinal} == 0" th:text="${todasSituacoes[agenda.situacaoAtendimento].descricao}"></span>
+							-->
+							<span class="label  label-default" th:if="${agenda.situacaoAtendimento.descricao} == 'Agendado'" th:text="AGENDADO"></span>
+							<span class="label  label-warning" th:if="${agenda.situacaoAtendimento.descricao} == 'Aguardando'" th:text="AGUARDANDO"></span>
+							<span class="label  label-primary" th:if="${agenda.situacaoAtendimento.descricao} == 'Atendimento'" th:text="EM_ATENDIMENTO"></span>
+							<span class="label  label-success" th:if="${agenda.situacaoAtendimento.descricao} == 'Atendido'" th:text="ATENDIDO"></span>
+							<span class="label  label-danger" th:if="${agenda.situacaoAtendimento.descricao} == 'Falta'" th:text="FALTA"></span>
+
+						</td>
+						<td class="text-left" th:if="${agenda.situacaoAtendimento} == null"></td>
 						
 						<td class="text-center" th:if="${agenda.paciente} != null">
 
@@ -97,10 +113,8 @@
 									data:url="@{/marcacao/{codigo}(codigo=${agenda.codigo})}">
 								<i class="glyphicon glyphicon-remove"></i>
 							</a>
-							
-														
 						</td>
-						
+				
 						<td class="text-center" th:if="${agenda.paciente} == null">
 							
 							<button class="btn  btn-default  js-tooltip" type="button" title="Pesquisa paciente"
